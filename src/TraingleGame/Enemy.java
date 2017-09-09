@@ -57,4 +57,14 @@ public class Enemy extends Movables{
         }
     }
     //public void renderExplode(){}
+
+    /**
+     * checks to see if location is out of bounds
+     * @param objectCenter
+     * @return false if location is not out of bounds
+     *         true if location is out of bounds
+     */
+    public boolean locationOOB(Point objectCenter){
+        return false;
+    }
 }

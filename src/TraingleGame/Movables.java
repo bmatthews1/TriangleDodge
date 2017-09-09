@@ -1,5 +1,7 @@
 package TraingleGame;
 
+import java.awt.*;
+
 /**
  * Created by Divya on 9/8/2017.
  */
@@ -28,4 +30,9 @@ abstract public class Movables {
      * Renders the exploding animation
      */
     //public void renderExplode(){}
+    /**
+     * Checks to see if a given location is out of bounds
+     *
+     */
+    abstract boolean locationOOB(Point objectCenter);
 }

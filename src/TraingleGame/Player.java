@@ -40,4 +40,13 @@ public class Player extends Movables{
 
     }
     //public void renderExplode(){}
+    /**
+     * checks to see if location is out of bounds
+     * @param objectCenter
+     * @return false if location is not out of bounds
+     * @return true if location is out of bounds
+     */
+    public boolean locationOOB(Point objectCenter){
+        return false;
+    }
 }
