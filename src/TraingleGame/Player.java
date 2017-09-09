@@ -12,15 +12,15 @@ public class Player extends Movables{
     Point b;
     Point c;
     Point center;
-    Double angle;
-    Double magnitude;
+    double angle;
+    double magnitude;
 
     /**
      * Deque to hold and update the after-images of the object
      */
     Deque trails = new LinkedList<>();
 
-    public Player(Point center, Double magnitude, Double angle){
+    public Player(Point center, double magnitude, double angle){
         this.center= center;
         this.magnitude = magnitude;
         this.angle = angle;
