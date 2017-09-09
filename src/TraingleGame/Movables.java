@@ -31,6 +31,13 @@ abstract public class Movables {
     public void render(){}
 
     /**
+     * updates the object
+     */
+    public void update(){
+
+    }
+
+    /**
      * Renders the exploding animation
      */
     //public void renderExplode(){}
