@@ -38,7 +38,7 @@ public class Main extends PApplet{
 
     @Override
     public void settings(){
-        size((int)(WIDTH/2), (int)(HEIGHT/2));
+        size((int)WIDTH, (int)HEIGHT);
         init();
     }
 
@@ -95,8 +95,8 @@ public class Main extends PApplet{
     private void drawEnemy(Enemy e){
         strokeWeight(2);
         if (e.attraction) {
-            fill(0, 60, 80);
-            stroke(0, 100, 100);
+            fill(200, 60, 80);
+            stroke(200, 100, 100);
             float innerRadius = e.radius*.2f;
             float angle = 0;
             beginShape();
@@ -109,8 +109,8 @@ public class Main extends PApplet{
             }
             endShape(CLOSE);
         } else {
-            fill(200, 60, 80);
-            stroke(200, 100, 100);
+            fill(0, 60, 80);
+            stroke(0, 100, 100);
             ellipse(e.center.x, e.center.y, e.radius, e.radius);
         }
     }
