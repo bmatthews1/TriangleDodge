@@ -19,7 +19,7 @@ public class Main extends PApplet{
         gameover
     }
 
-    GameState gameState = GameState.menu;
+    public GameState gameState = GameState.menu;
 
     @Override
     public void settings(){
