@@ -39,12 +39,7 @@ public class Enemy extends Movables{
     }
 
     @Override
-    void setPosition(Player player) {
-
-    }
-
-    @Override
-    void render() {
+    void setPosition(Movables m) {
 
     }
 
