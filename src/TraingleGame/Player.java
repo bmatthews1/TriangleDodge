@@ -19,9 +19,30 @@ public class Player extends Movables{
      */
     Deque trails = new LinkedList<>();
 
-    public void explode(){}
-    public void rotate(Double angle){}
-    public void setPosition(Movables m){}
-    public void render(){}
+
+    @Override
+    void explode() {
+
+    }
+
+    @Override
+    void rotate(Double angle) {
+
+    }
+
+    @Override
+    void setPosition(Movables m) {
+
+    }
+
+    @Override
+    void render() {
+
+    }
+
+    @Override
+    void update() {
+
+    }
     //public void renderExplode(){}
 }

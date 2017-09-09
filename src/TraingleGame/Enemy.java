@@ -22,8 +22,30 @@ public class Enemy extends Movables{
 
     public Enemy(Point position, Double radius){}
 
-    public void explode(){}
-    public void setPosition(Movables m){}
-    public void render(){}
+    @Override
+    void explode() {
+
+    }
+
+    @Override
+    void rotate(Double angle) {
+
+    }
+
+    @Override
+    void setPosition(Movables m) {
+
+    }
+
+    @Override
+    void render() {
+
+    }
+
+    @Override
+    void update() {
+
+    }
+
     //public void renderExplode(){}
 }
