@@ -1,9 +1,5 @@
 package TraingleGame;
 
-import java.awt.*;
-import java.util.Deque;
-import java.util.LinkedList;
-
 /**
  * Created by Divya on 9/8/2017.
  */
@@ -31,10 +27,8 @@ abstract public class Movables {
 
     /**
      * Renders the object
-     * @param x x coordinate where the object needs to be drawn
-     * @param y x coordinate where the object needs to be drawn
      */
-    public void render(double x, double y){}
+    public void render(){}
 
     /**
      * Renders the exploding animation

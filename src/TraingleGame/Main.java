@@ -11,18 +11,6 @@ import processing.core.PApplet;
  */
 public class Main extends PApplet{
 
-    Double score;
-    /**
-     * Render the background, score and stats areas
-     */
-    public void render(){}
-
-    /**
-     * Update the value of the score
-     * @param score
-     */
-    public void setScore(double score){}
-
     @Override
     public void settings(){
         size(400,400);

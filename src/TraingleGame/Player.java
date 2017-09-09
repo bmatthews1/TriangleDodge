@@ -11,9 +11,8 @@ public class Player extends Movables{
     Point a;
     Point b;
     Point c;
-    Double speed;
-    int xvel;
-    int yvel;
+    Double angle;
+    Double magnitude;
 
     /**
      * Deque to hold and update the after-images of the object
@@ -23,6 +22,6 @@ public class Player extends Movables{
     public void explode(){}
     public void rotate(Double angle){}
     public void setPosition(Movables m){}
-    public void render(double x, double y){}
+    public void render(){}
     //public void renderExplode(){}
 }
