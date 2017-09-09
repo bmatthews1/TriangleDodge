@@ -47,6 +47,10 @@ public class Player extends Movables{
      * @return true if location is out of bounds
      */
     public boolean locationOOB(Point objectCenter){
-        return false;
+        Main m = new Main();
+        if(objectCenter.x>m.WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
+            return true;
+        }
+        else return false;
     }
 }
