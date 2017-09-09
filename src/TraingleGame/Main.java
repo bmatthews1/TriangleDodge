@@ -11,6 +11,16 @@ import processing.core.PApplet;
  */
 public class Main extends PApplet{
 
+    public enum GameState {
+        menu,
+        init,
+        playing,
+        paused,
+        gameover
+    }
+
+    GameState gameState = GameState.menu;
+
     @Override
     public void settings(){
         size(400,400);
@@ -19,6 +29,44 @@ public class Main extends PApplet{
     @Override
     public void draw(){
         background(0, 0, 0);
+        switch (gameState){
+            case menu : menu();
+                break;
+            case playing : playing();
+                break;
+            case paused : paused();
+                break;
+            case gameover: gameOver();
+                break;
+        }
+    }
+
+    /**
+     * called when the gameState is menu
+     */
+    public void menu(){
+
+    }
+
+    /**
+     * called when the gameState is playing
+     */
+    public void playing(){
+
+    }
+
+    /**
+     * called when the gameState is paused
+     */
+    public void paused(){
+
+    }
+
+    /**
+     * called when the gameState is gameover
+     */
+    public void gameOver(){
+
     }
 
     public static void main(String[] args){
