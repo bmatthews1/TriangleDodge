@@ -3,6 +3,8 @@ package TraingleGame;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 /**
  * Created by Ben on 9/8/2017.
@@ -15,12 +17,51 @@ public class Main extends PApplet{
 
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
-    final int START_NUM_ENEMIES = 10;
-    final int MAGNITUDE = 10;
+    final int MAX_ENEMIES = 20;
+    final int MAGNITUDE = 2;
+    final int ENEMY_RADIUS = 20;
+    Random random = new Random();
 
+    public void init(){
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
+        Point p = new Point();
+        while (enemies.size() <= MAX_ENEMIES) {
+            for (Enemy e: enemies) {
+                while((p = getRandomPoint()).equals(e.center)){
+                    p = getRandomPoint();
+                }
+            }
+            enemies.add(makeEnemy(p, ENEMY_RADIUS, getAttraction(), player));
+        }
+    }
 
-    private void init(){
-        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (float)MAGNITUDE*2, 0.0);
+    public Enemy makeEnemy(Point p, int radius, boolean attraction, Player player){
+        return new Enemy(p, radius, attraction, player);
+    }
+
+    private boolean getAttraction(){
+        return random.nextInt() < 0.5 ? true : false;
+    }
+
+    private Point getRandomPoint() {
+        float x;
+        float y;
+        float rand = random(0, 1);
+        if (rand > 0 && rand < 0.25) {
+            x = random(0, WIDTH);
+            y = HEIGHT;
+        } else if (rand > 0.25 && rand < 0.5) {
+            x = WIDTH;
+            y = random(0, HEIGHT);
+        } else if (rand > 0.5 && rand < 0.75) {
+            x = random(0, WIDTH);
+            y = 0;
+        } else {
+            x = 0;
+            y = random(0, HEIGHT);
+        }
+
+        return new Point((int) x, (int) y);
     }
 
     public enum GameState {
