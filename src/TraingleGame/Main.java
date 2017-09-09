@@ -6,10 +6,21 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import processing.core.PApplet;
 
+import java.util.ArrayList;
+
 /**
  * Created by Ben on 9/8/2017.
  */
 public class Main extends PApplet{
+
+    Player player;
+    ArrayList<Enemy> enemies  = new ArrayList<>();
+    final int START_NUM_ENEMIES = 10;
+    final int MAGNITUDE = 10;
+
+    public void init(){
+//        player = new Player();
+    }
 
     public enum GameState {
         menu,
@@ -71,6 +82,7 @@ public class Main extends PApplet{
 
     public static void main(String[] args){
         Main m = new Main();
+        m.init();
         PApplet.runSketch(new String[]{"Main"}, m);
     }
 }

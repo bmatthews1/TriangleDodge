@@ -20,7 +20,11 @@ public class Enemy extends Movables{
     Deque trails = new LinkedList<>();
 
 
-    public Enemy(Point position, Double radius){}
+    public Enemy(Point center, Double radius, Boolean attraction){
+        this.center = center;
+        this.radius = radius;
+        this.attraction = attraction;
+    }
 
     @Override
     void explode() {
@@ -47,5 +51,9 @@ public class Enemy extends Movables{
 
     }
 
+    public void explode(){}
+    public void setPosition(Movables m){}
+    public void update(){}
+    public void render(){}
     //public void renderExplode(){}
 }

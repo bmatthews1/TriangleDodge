@@ -19,6 +19,13 @@ public class Player extends Movables{
      */
     Deque trails = new LinkedList<>();
 
+    public Player(Point a, Point b, Point c, Double magnitude, Double angle){
+        this.a = a;
+        this.b = b;
+        this.c = c;
+        this.magnitude = magnitude;
+        this.angle = angle;
+    }
 
     @Override
     void explode() {
