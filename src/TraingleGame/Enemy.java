@@ -50,10 +50,5 @@ public class Enemy extends Movables{
     void update() {
 
     }
-
-    public void explode(){}
-    public void setPosition(Movables m){}
-    public void update(){}
-    public void render(){}
     //public void renderExplode(){}
 }
