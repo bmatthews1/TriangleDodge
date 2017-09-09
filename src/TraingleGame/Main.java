@@ -8,22 +8,19 @@ import java.util.ArrayList;
  * Created by Ben on 9/8/2017.
  */
 public class Main extends PApplet{
+    private static final float numSpikes = 40f;
+
+    public static final float WIDTH = 400;
+    public static final float HEIGHT = 400;
 
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
     final int MAGNITUDE = 10;
-    final float WIDTH = 400;
-    final float HEIGHT = 400;
 
 
     private void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (float)MAGNITUDE*2, 0.0);
-
-
-        for (int i = 0; i < 20; i++){
-            enemies.add(new Enemy(new Point(random(width), random(height)), 20, random(1)<.5f, player));
-        }
     }
 
     public enum GameState {
@@ -69,8 +66,10 @@ public class Main extends PApplet{
      */
     private void playing(){
         for (Enemy e : enemies){
+            e.update();
             drawEnemy(e);
         }
+
     }
 
     /**
@@ -100,9 +99,9 @@ public class Main extends PApplet{
             float innerRadius = e.radius*.2f;
             float angle = 0;
             beginShape();
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < numSpikes; i++) {
                 float radius = i%2 == 0 ? e.radius : innerRadius;
-                angle = (i/20.0f)*PI*2;
+                angle = (i/numSpikes)*PI*2;
                 float x = cos(angle)*radius + e.center.x;
                 float y = sin(angle)*radius + e.center.y;
                 vertex(x, y);
@@ -111,7 +110,7 @@ public class Main extends PApplet{
         } else {
             fill(0, 60, 80);
             stroke(0, 100, 100);
-            ellipse(e.center.x, e.center.y, e.radius, e.radius);
+            ellipse(e.center.x, e.center.y, e.radius*2, e.radius*2);
         }
     }
 

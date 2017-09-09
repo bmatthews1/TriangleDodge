@@ -6,8 +6,6 @@ import java.awt.*;
  * Created by Divya on 9/8/2017.
  */
 abstract public class Movables {
-    float x, y;
-
     /**
      * Called when this object dies
      */
