@@ -19,6 +19,11 @@ public class Main extends PApplet{
 
     private void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (float)MAGNITUDE*2, 0.0);
+
+
+        for (int i = 0; i < 20; i++){
+            enemies.add(new Enemy(new Point(random(width), random(height)), 20, random(1)<.5f, player));
+        }
     }
 
     public enum GameState {
@@ -29,7 +34,7 @@ public class Main extends PApplet{
         gameover
     }
 
-    public GameState gameState = GameState.menu;
+    public GameState gameState = GameState.playing;
 
     @Override
     public void settings(){
@@ -63,7 +68,9 @@ public class Main extends PApplet{
      * called when the gameState is playing
      */
     private void playing(){
-
+        for (Enemy e : enemies){
+            drawEnemy(e);
+        }
     }
 
     /**
@@ -95,9 +102,9 @@ public class Main extends PApplet{
             beginShape();
             for (int i = 0; i < 20; i++) {
                 float radius = i%2 == 0 ? e.radius : innerRadius;
-                angle = i/20.0f;
-                float x = cos(angle)*radius;
-                float y = sin(angle)*radius;
+                angle = (i/20.0f)*PI*2;
+                float x = cos(angle)*radius + e.center.x;
+                float y = sin(angle)*radius + e.center.y;
                 vertex(x, y);
             }
             endShape(CLOSE);
