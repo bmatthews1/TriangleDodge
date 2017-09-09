@@ -18,7 +18,7 @@ public class Main extends PApplet{
     final int START_NUM_ENEMIES = 10;
     final int MAGNITUDE = 10;
 
-    public void init(){
+    private void init(){
 //        player = new Player();
     }
 
@@ -35,6 +35,7 @@ public class Main extends PApplet{
     @Override
     public void settings(){
         size(400,400);
+        init();
     }
 
     @Override
@@ -55,34 +56,41 @@ public class Main extends PApplet{
     /**
      * called when the gameState is menu
      */
-    public void menu(){
+    private void menu(){
 
     }
 
     /**
      * called when the gameState is playing
      */
-    public void playing(){
+    private void playing(){
 
     }
 
     /**
      * called when the gameState is paused
      */
-    public void paused(){
+    private void paused(){
 
     }
 
     /**
      * called when the gameState is gameover
      */
-    public void gameOver(){
+    private void gameOver(){
+
+    }
+
+    private void drawEnemy(Enemy e){
+
+    }
+
+    private void drawPlayer(Player p){
 
     }
 
     public static void main(String[] args){
         Main m = new Main();
-        m.init();
         PApplet.runSketch(new String[]{"Main"}, m);
     }
 }

@@ -43,11 +43,6 @@ public class Player extends Movables{
     }
 
     @Override
-    void render() {
-
-    }
-
-    @Override
     void update() {
 
     }
