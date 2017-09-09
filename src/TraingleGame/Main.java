@@ -24,15 +24,15 @@ public class Main extends PApplet{
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
         while (enemies.size() <= MAX_ENEMIES) {
-            enemies.add(makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player));
+            makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
     }
 
-    public Enemy makeEnemy(Point p, int radius, boolean attraction, Player player){
-        return new Enemy(p, radius, attraction, player);
+    public void makeEnemy(Point p, int radius, boolean attraction, Player player){
+        enemies.add(new Enemy(p, radius, attraction, player));
     }
 
-    private boolean getAttraction(){
+    public boolean getAttraction(){
         return random.nextInt() < 0.5 ? true : false;
     }
 
