@@ -33,4 +33,5 @@ abstract public class Movables {
      *
      */
     abstract boolean locationOOB(Point objectCenter);
+    abstract boolean hasCollide(Point incomingCenter);
 }

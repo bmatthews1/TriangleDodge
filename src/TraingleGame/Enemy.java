@@ -82,4 +82,16 @@ public class Enemy extends Movables{
         }
         else return false;
     }
+
+    /**
+     * checks to see if incoming object's center is within the bounds of this object
+     * @param incomingCenter
+     * @return true if there is collision, false if no collision
+     */
+    public boolean hasCollide(Point incomingCenter){
+        if(Math.pow((incomingCenter.x-center.x),2)+Math.pow((incomingCenter.y-center.y),2)<=Math.pow(radius, 2)){
+            return true;
+        }
+        else return false;
+    }
 }
