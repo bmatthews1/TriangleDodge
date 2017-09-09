@@ -27,11 +27,6 @@ abstract public class Movables {
     abstract void setPosition(Movables m);
 
     /**
-     * Renders the object
-     */
-    abstract void render();
-
-    /**
      * updates the object
      */
     abstract void update();
