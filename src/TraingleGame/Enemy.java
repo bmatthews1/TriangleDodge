@@ -14,6 +14,7 @@ public class Enemy extends Movables{
     Double magnitude;
     Point center;
     Double radius;
+    int critProx = 30;
 
     /**
      * Deque to hold and update the after-images of the object
@@ -45,7 +46,16 @@ public class Enemy extends Movables{
 
     @Override
     void update() {
-
+        if(!attraction){
+            if(Math.pow((center.x-player.x), 2)+Math.pow((center.y-player.y),2) <= critProx) {
+                center.x += Math.cos(angle) * magnitude * (-1);
+                center.y += Math.sin(angle) * magnitude * (-1);
+            }
+        }
+        else{
+            center.x += Math.cos(angle) * magnitude ;
+            center.y += Math.sin(angle) * magnitude ;
+        }
     }
     //public void renderExplode(){}
 }
