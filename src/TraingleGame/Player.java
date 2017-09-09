@@ -11,6 +11,7 @@ public class Player extends Movables{
     Point a;
     Point b;
     Point c;
+    Point center;
     Double angle;
     Double magnitude;
 
@@ -19,10 +20,8 @@ public class Player extends Movables{
      */
     Deque trails = new LinkedList<>();
 
-    public Player(Point a, Point b, Point c, Double magnitude, Double angle){
-        this.a = a;
-        this.b = b;
-        this.c = c;
+    public Player(Point center, Double magnitude, Double angle){
+        this.center= center;
         this.magnitude = magnitude;
         this.angle = angle;
     }

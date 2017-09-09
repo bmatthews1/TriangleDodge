@@ -6,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import processing.core.PApplet;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +17,9 @@ public class Main extends PApplet{
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
-    final int MAGNITUDE = 10;
+    final double MAGNITUDE = 10.0;
+    final double WIDTH = 400.0;
+    final double HEIGHT = 400.0;
 
     private void init(){
 //        player = new Player();
@@ -34,13 +37,15 @@ public class Main extends PApplet{
 
     @Override
     public void settings(){
-        size(400,400);
+        size((int)WIDTH, (int)HEIGHT);
         init();
     }
 
     @Override
     public void draw(){
         background(0, 0, 0);
+        fill(150);
+        ellipse((float)(player.center.x), (float)(player.center.y), 100, 100);
         switch (gameState){
             case menu : menu();
                 break;
