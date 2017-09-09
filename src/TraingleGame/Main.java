@@ -1,9 +1,5 @@
 package TraingleGame;
 
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import processing.core.PApplet;
 
 import java.awt.*;
@@ -17,12 +13,12 @@ public class Main extends PApplet{
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
-    final double MAGNITUDE = 10.0;
-    final double WIDTH = 400.0;
-    final double HEIGHT = 400.0;
+    final int MAGNITUDE = 10;
+    final double WIDTH = 400;
+    final double HEIGHT = 400;
 
-    private void init(){
-//        player = new Player();
+    public void init(){
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
     }
 
     public enum GameState {
@@ -37,15 +33,13 @@ public class Main extends PApplet{
 
     @Override
     public void settings(){
-        size((int)WIDTH, (int)HEIGHT);
+        size((int)(WIDTH/2), (int)(HEIGHT/2));
         init();
     }
 
     @Override
     public void draw(){
         background(0, 0, 0);
-        fill(150);
-        ellipse((float)(player.center.x), (float)(player.center.y), 100, 100);
         switch (gameState){
             case menu : menu();
                 break;
@@ -61,36 +55,28 @@ public class Main extends PApplet{
     /**
      * called when the gameState is menu
      */
-    private void menu(){
+    public void menu(){
 
     }
 
     /**
      * called when the gameState is playing
      */
-    private void playing(){
+    public void playing(){
 
     }
 
     /**
      * called when the gameState is paused
      */
-    private void paused(){
+    public void paused(){
 
     }
 
     /**
      * called when the gameState is gameover
      */
-    private void gameOver(){
-
-    }
-
-    private void drawEnemy(Enemy e){
-
-    }
-
-    private void drawPlayer(Player p){
+    public void gameOver(){
 
     }
 
