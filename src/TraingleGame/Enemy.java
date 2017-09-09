@@ -8,7 +8,10 @@ import java.util.LinkedList;
  * Created by Divya on 9/8/2017.
  */
 public class Enemy extends Movables{
-    Boolean attraction;
+    private Boolean attraction;
+    private Double speed;
+    private int xvel;
+    int yvel;
     Point a;
     Point b;
     Point c;
@@ -23,7 +26,6 @@ public class Enemy extends Movables{
 
     public void explode(){}
     public void rotate(Double angle){}
-    public void updatePosition(Point a, Point b, Point c){}
     public void setPosition(Movables m){}
     public void render(double x, double y){}
     //public void renderExplode(){}

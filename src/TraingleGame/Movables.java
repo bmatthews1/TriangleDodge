@@ -23,25 +23,16 @@ abstract public class Movables {
     public void rotate(Double angle){}
 
     /**
-     * Updates the a, b, and c of the object to the arguments
-     * provided
-     * @param a
-     * @param b
-     * @param c
-     */
-    public void updatePosition(Point a, Point b, Point c){}
-
-    /**
      * Sets the position of the object after rotation according to
      * the gravitational pull
-     * @param m
+     * @param m Movables object
      */
     public void setPosition(Movables m){}
 
     /**
      * Renders the object
-     * @param x
-     * @param y
+     * @param x x coordinate where the object needs to be drawn
+     * @param y x coordinate where the object needs to be drawn
      */
     public void render(double x, double y){}
 
