@@ -14,6 +14,7 @@ public class Enemy extends Movables{
     Double magnitude;
     Point center;
     Double radius;
+    private int critProx = 30;
 
     /**
      * Deque to hold and update the after-images of the object
@@ -26,6 +27,7 @@ public class Enemy extends Movables{
         this.radius = radius;
         this.attraction = attraction;
         this.player = player;
+
     }
 
     @Override
@@ -39,7 +41,7 @@ public class Enemy extends Movables{
     }
 
     @Override
-    void setPosition(Player player) {
+    void setPosition(Movables m) {
 
     }
 
@@ -50,7 +52,16 @@ public class Enemy extends Movables{
 
     @Override
     void update() {
-
+        if(!attraction){
+            if(Math.pow((center.x-player.x), 2) + Math.pow((center.y-player.y),2)<=critProx) {
+                center.x += (Math.cos(angle) * (-1) * (magnitude));
+                center.y += (Math.sin(angle) * (-1) * (magnitude));
+            }
+        }
+        else {
+            center.x += (Math.cos(angle) * (-1) * (magnitude));
+            center.y += (Math.sin(angle) * (-1) * (magnitude));
+        }
     }
     //public void renderExplode(){}
 }
