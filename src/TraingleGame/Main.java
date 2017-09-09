@@ -10,6 +10,19 @@ import javafx.stage.Stage;
  */
 public class Main extends Application{
 
+    Double score;
+
+    /**
+     * Render the background, score and stats areas
+     */
+    public void render(){}
+
+    /**
+     * Update the value of the score
+     * @param score
+     */
+    public void setScore(double score){}
+
     @Override
     public void start(Stage stage) throws Exception {
         Pane pane = new Pane();
