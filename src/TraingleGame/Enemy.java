@@ -57,6 +57,9 @@ public class Enemy extends Movables{
             }
         }
         else{
+            if(Math.pow((center.x-player.center.x), 2)+Math.pow((center.y-player.center.y),2) <= critProx){
+                angle = (float)(Math.atan((double)((center.y-player.center.y)/(center.x-player.center.x))));
+            }
             center.x += Math.cos(angle) * magnitude ;
             center.y += Math.sin(angle) * magnitude ;
         }
