@@ -4,7 +4,7 @@ package TraingleGame;
  * Created by Divya on 9/9/2017.
  */
 public class GameManager {
-    Double score;
+    double score;
 
     /**
      * Render the background, score and stats areas

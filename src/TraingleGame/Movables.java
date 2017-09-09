@@ -17,14 +17,7 @@ abstract public class Movables {
      * calculated a, b, and c points
      * @param angle
      */
-    abstract void rotate(Double angle);
-
-    /**
-     * Sets the position of the object after rotation according to
-     * the gravitational pull
-     * @param m Movables object
-     */
-    abstract void setPosition(Movables m);
+    abstract void rotate(double angle);
 
     /**
      * updates the object

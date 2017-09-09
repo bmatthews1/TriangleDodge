@@ -32,12 +32,7 @@ public class Player extends Movables{
     }
 
     @Override
-    void rotate(Double angle) {
-
-    }
-
-    @Override
-    void setPosition(Movables m) {
+    void rotate(double angle) {
 
     }
 

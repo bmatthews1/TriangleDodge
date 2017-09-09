@@ -17,6 +17,7 @@ public class Main extends PApplet{
     final double WIDTH = 400;
     final double HEIGHT = 400;
 
+
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
     }

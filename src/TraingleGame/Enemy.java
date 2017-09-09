@@ -8,12 +8,12 @@ import java.util.LinkedList;
  * Created by Divya on 9/8/2017.
  */
 public class Enemy extends Movables{
-    Boolean attraction;
+    boolean attraction;
     Player player;
-    Double angle;
-    Double magnitude;
+    double angle;
+    double magnitude;
     Point center;
-    Double radius;
+    double radius;
     int critProx = 30;
 
     /**
@@ -22,7 +22,7 @@ public class Enemy extends Movables{
     Deque trails = new LinkedList<>();
 
 
-    public Enemy(Point center, Double radius, Boolean attraction, Player player){
+    public Enemy(Point center, double radius, boolean attraction, Player player){
         this.center = center;
         this.radius = radius;
         this.attraction = attraction;
@@ -35,12 +35,7 @@ public class Enemy extends Movables{
     }
 
     @Override
-    void rotate(Double angle) {
-
-    }
-
-    @Override
-    void setPosition(Movables m) {
+    void rotate(double angle) {
 
     }
 
