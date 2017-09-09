@@ -64,6 +64,16 @@ public class Player extends Movables{
         }
         else return false;
     }
+
+    /**
+     * does the heavy lifting for hasCollide() above
+     *
+     * @param pt
+     * @param v1
+     * @param v2
+     * @param v3
+     * @return true if point is in triangle, false if not
+     */
     private boolean pointInTriangle (Point pt, Point v1, Point v2, Point v3)
     {
         boolean b1, b2, b3;
@@ -74,6 +84,14 @@ public class Player extends Movables{
 
         return ((b1 == b2) && (b2 == b3));
     }
+
+    /**
+     * helper method for pointInTriangle()
+     * @param p1
+     * @param p2
+     * @param p3
+     * @return float with sign
+     */
     private float sign (Point p1, Point p2, Point p3)
     {
         return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
