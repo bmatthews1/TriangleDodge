@@ -9,6 +9,7 @@ import java.util.LinkedList;
  */
 public class Enemy extends Movables{
     Boolean attraction;
+    Player player;
     Double angle;
     Double magnitude;
     Point center;
@@ -20,10 +21,11 @@ public class Enemy extends Movables{
     Deque trails = new LinkedList<>();
 
 
-    public Enemy(Point center, Double radius, Boolean attraction){
+    public Enemy(Point center, Double radius, Boolean attraction, Player player){
         this.center = center;
         this.radius = radius;
         this.attraction = attraction;
+        this.player = player;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class Enemy extends Movables{
     }
 
     @Override
-    void setPosition(Movables m) {
+    void setPosition(Player player) {
 
     }
 
