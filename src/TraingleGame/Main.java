@@ -14,12 +14,12 @@ public class Main extends PApplet{
     ArrayList<Enemy> enemies  = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
     final int MAGNITUDE = 10;
-    final double WIDTH = 400;
-    final double HEIGHT = 400;
+    final float WIDTH = 400;
+    final float HEIGHT = 400;
 
 
     public void init(){
-        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (float)MAGNITUDE*2, 0.0);
     }
 
     public enum GameState {
@@ -70,16 +70,51 @@ public class Main extends PApplet{
     /**
      * called when the gameState is paused
      */
-    public void paused(){
+    private void paused(){
 
     }
 
     /**
      * called when the gameState is gameover
      */
-    public void gameOver(){
+    private void gameOver(){
 
     }
+
+    /**
+     * draws the specified enemy
+     *
+     * @param e
+     */
+    private void drawEnemy(Enemy e){
+        strokeWeight(2);
+        if (e.attraction) {
+            fill(0, 60, 80);
+            stroke(0, 100, 100);
+            float innerRadius = e.radius*.2f;
+            float angle = 0;
+            beginShape();
+            for (int i = 0; i < 20; i++) {
+                float radius = i%2 == 0 ? e.radius : innerRadius;
+                angle = i/20.0f;
+                float x = cos(angle)*radius;
+                float y = sin(angle)*radius;
+            }
+        } else {
+            fill(200, 60, 80);
+            stroke(200, 100, 100);
+            ellipse(e.center.x, e.center.y, e.radius, e.radius);
+        }
+    }
+
+    /**
+     * draws the specified player
+     */
+    private void drawPlayer(){
+
+    }
+
+
 
     public static void main(String[] args){
         Main m = new Main();

@@ -10,10 +10,10 @@ import java.util.LinkedList;
 public class Enemy extends Movables{
     boolean attraction;
     Player player;
-    double angle;
-    double magnitude;
+    float angle;
+    float magnitude;
     Point center;
-    double radius;
+    float radius;
     int critProx = 30;
 
     /**
@@ -22,7 +22,7 @@ public class Enemy extends Movables{
     Deque trails = new LinkedList<>();
 
 
-    public Enemy(Point center, double radius, boolean attraction, Player player){
+    public Enemy(Point center, float radius, boolean attraction, Player player){
         this.center = center;
         this.radius = radius;
         this.attraction = attraction;
@@ -35,7 +35,7 @@ public class Enemy extends Movables{
     }
 
     @Override
-    void rotate(double angle) {
+    void rotate(float angle) {
 
     }
 

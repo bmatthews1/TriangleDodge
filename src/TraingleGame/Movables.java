@@ -17,7 +17,7 @@ abstract public class Movables {
      * calculated a, b, and c points
      * @param angle
      */
-    abstract void rotate(double angle);
+    abstract void rotate(float angle);
 
     /**
      * updates the object
