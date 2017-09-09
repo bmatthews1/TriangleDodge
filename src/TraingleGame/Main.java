@@ -2,7 +2,6 @@ package TraingleGame;
 
 import processing.core.PApplet;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -18,7 +17,7 @@ public class Main extends PApplet{
     final float HEIGHT = 400;
 
 
-    public void init(){
+    private void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (float)MAGNITUDE*2, 0.0);
     }
 
@@ -56,14 +55,14 @@ public class Main extends PApplet{
     /**
      * called when the gameState is menu
      */
-    public void menu(){
+    private void menu(){
 
     }
 
     /**
      * called when the gameState is playing
      */
-    public void playing(){
+    private void playing(){
 
     }
 
@@ -99,7 +98,9 @@ public class Main extends PApplet{
                 angle = i/20.0f;
                 float x = cos(angle)*radius;
                 float y = sin(angle)*radius;
+                vertex(x, y);
             }
+            endShape(CLOSE);
         } else {
             fill(200, 60, 80);
             stroke(200, 100, 100);

@@ -1,6 +1,5 @@
 package TraingleGame;
 
-import java.awt.*;
 import java.util.Deque;
 import java.util.LinkedList;
 

@@ -4,7 +4,7 @@ package TraingleGame;
  * Created by Divya on 9/8/2017.
  */
 abstract public class Movables {
-    public double x, y;
+    float x, y;
 
     /**
      * Called when this object dies
