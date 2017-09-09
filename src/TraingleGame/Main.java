@@ -3,7 +3,6 @@ package TraingleGame;
 import processing.core.PApplet;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -24,14 +23,8 @@ public class Main extends PApplet{
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
-        Point p = new Point();
         while (enemies.size() <= MAX_ENEMIES) {
-            for (Enemy e: enemies) {
-                while((p = getRandomPoint()).equals(e.center)){
-                    p = getRandomPoint();
-                }
-            }
-            enemies.add(makeEnemy(p, ENEMY_RADIUS, getAttraction(), player));
+            enemies.add(makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player));
         }
     }
 
