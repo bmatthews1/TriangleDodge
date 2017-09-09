@@ -4,27 +4,37 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.awt.*;
+import processing.core.PApplet;
 
 /**
  * Created by Ben on 9/8/2017.
  */
-public class Main extends Application{
+public class Main extends PApplet{
+
+    Double score;
+    /**
+     * Render the background, score and stats areas
+     */
+    public void render(){}
+
+    /**
+     * Update the value of the score
+     * @param score
+     */
+    public void setScore(double score){}
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Pane pane = new Pane();
-        Scene scene = new Scene(pane,800, 600);
-        stage.setScene(scene);
-        stage.show();
-
-        Player p = new Player();
-        p.a = new Point(4,5);
+    public void settings(){
+        size(400,400);
     }
 
-    public static void main(String[] args)
-    {
-        launch(args);
+    @Override
+    public void draw(){
+        background(0, 0, 0);
+    }
+
+    public static void main(String[] args){
+        Main m = new Main();
+        PApplet.runSketch(new String[]{"Main"}, m);
     }
 }
