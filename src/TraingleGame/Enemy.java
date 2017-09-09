@@ -51,6 +51,11 @@ public class Enemy extends Movables{
                 center.x += Math.cos(angle) * magnitude * (-1);
                 center.y += Math.sin(angle) * magnitude * (-1);
             }
+            else{
+                center.x += Math.cos(angle) * magnitude ;
+                center.y += Math.sin(angle) * magnitude ;
+            }
+
         }
         else{
             center.x += Math.cos(angle) * magnitude ;
