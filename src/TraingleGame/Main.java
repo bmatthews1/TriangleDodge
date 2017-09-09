@@ -11,8 +11,8 @@ import java.util.Random;
 public class Main extends PApplet{
     private static final float numSpikes = 40f;
 
-    public static final float WIDTH = 400;
-    public static final float HEIGHT = 400;
+    public static final float WIDTH = 800;
+    public static final float HEIGHT = 600;
 
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
@@ -103,7 +103,7 @@ public class Main extends PApplet{
             e.update();
             drawEnemy(e);
         }
-
+        drawPlayer();
     }
 
     /**
@@ -152,7 +152,10 @@ public class Main extends PApplet{
      * draws the specified player
      */
     private void drawPlayer(){
-
+        player.update();
+        fill(40);
+        stroke(0, 100, 100);
+        triangle(player.a.x, player.a.y, player.b.x, player.b.y, player.c.x, player.c.y);
     }
 
 

@@ -23,6 +23,10 @@ public class Player extends Movables{
         this.center= center;
         this.magnitude = magnitude;
         this.angle = angle;
+        c = new Point(200, 250);
+        a = new Point(150, 350);
+        b = new Point(350, 350);
+
     }
 
     @Override
