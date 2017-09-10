@@ -21,7 +21,7 @@ public class Main extends PApplet{
     final int START_NUM_ENEMIES = 10;
     final int MAX_ENEMIES = 20;
     final int ENEMY_RADIUS = 20;
-    final int MAGNITUDE = 10;
+    final int MAGNITUDE = 15;
     int score = 0;
     int padding = 150;
 
@@ -38,7 +38,7 @@ public class Main extends PApplet{
                 if(enemies.get(i).locationOOB(enemies.get(j).center)){
                     enemies.get(i).oobDead = true;
                     enemies.get(j).oobDead = true;
-                }else if(enemies.get(i).hasCollide(enemies.get(j).center)){
+                }else if(enemies.get(i).hasCollide(enemies.get(j))){
                     enemies.get(i).normalDead = true;
                     enemies.get(j).normalDead = true;
                 }
@@ -75,7 +75,7 @@ public class Main extends PApplet{
     }
 
     private boolean getAttraction(){
-        return random(1) < 0.5 ? true : false;
+        return random(1) < 0.5;
     }
 
     private Point getRandomPoint() {
@@ -83,17 +83,17 @@ public class Main extends PApplet{
         float y;
         float rand = random(0, 1);
         if (rand > 0 && rand < 0.25) {
-            x = random(0+padding, WIDTH-padding);
-            y = HEIGHT-padding;
+            x = random(padding, WIDTH-padding);
+            y = HEIGHT-random(padding);
         } else if (rand > 0.25 && rand < 0.5) {
-            x = WIDTH-padding;
-            y = random(0+padding, HEIGHT-padding);
+            x = WIDTH-random(padding);
+            y = random(padding, HEIGHT-padding);
         } else if (rand > 0.5 && rand < 0.75) {
-            x = random(0+padding, WIDTH-padding);
-            y = 0+padding;
+            x = random(padding, WIDTH-padding);
+            y = random(padding);
         } else {
-            x = 0+padding;
-            y = random(0+padding, HEIGHT-padding);
+            x = random(padding);
+            y = random(padding, HEIGHT-padding);
         }
 
         return new Point((int) x, (int) y);

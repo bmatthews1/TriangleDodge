@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 import static TraingleGame.Main.HEIGHT;
 import static TraingleGame.Main.WIDTH;
-import static processing.core.PConstants.RADIUS;
+import static TraingleGame.Main.RADIUS;
 
 /**
  * Created by Divya on 9/8/2017.
@@ -18,9 +18,7 @@ public class Enemy extends Movables{
     float angle;
     float magnitude = 1;
     float angleMod;
-    Point center;
-    float radius;
-    int critProx = 100;
+    float critProx = RADIUS/3;
     boolean isWithinCritProx = false;
 
     public boolean oobDead = false;
@@ -108,13 +106,10 @@ public class Enemy extends Movables{
 
     /**
      * checks to see if incoming object's center is within the bounds of this object
-     * @param incomingCenter
      * @return true if there is collision, false if no collision
      */
-    public boolean hasCollide(Point incomingCenter){
-        if(Math.pow((incomingCenter.x-center.x),2)+Math.pow((incomingCenter.y-center.y),2)<=Math.pow(radius, 2)){
-            return true;
-        }
-        else return false;
+    @Override
+    public boolean hasCollide(Movables m){
+        return center.distTo(m.center) < radius + m.radius;
     }
 }

@@ -15,13 +15,12 @@ public class Player extends Movables{
     public static final float DRAG = .96f;
     public static final float playerScale = .8f;
     public static final float angleMod = .08f;
-    public static final double[] angles = {Math.PI*(2/3), Math.PI/4, Math.PI*(3/4d)};
-    public static final double[] lengths = {50, 22.627, 22.627};
+    public static final double[] angles = {Math.PI*(-3/4d), Math.PI*(3/4d), 0};
+    public static final double[] lengths = {22.627, 22.627, 36};
 
     Point a;
     Point b;
     Point c;
-    Point center;
     double angle;
     double magnitude;
     double xVel = 0;
@@ -67,14 +66,14 @@ public class Player extends Movables{
         }
 
         center.x += xVel;
-        a.x = (float)(Math.cos(angles[0] + angle)*lengths[0]);
-        b.x = (float)(Math.cos(angles[1] + angle)*lengths[1]);
-        b.x = (float)(Math.cos(angles[2] + angle)*lengths[2]);
+        a.x = (float)(Math.cos(angles[0] + angle)*lengths[0]) + center.x;
+        b.x = (float)(Math.cos(angles[1] + angle)*lengths[1]) + center.x;
+        c.x = (float)(Math.cos(angles[2] + angle)*lengths[2]) + center.x;
 
         center.y += yVel;
-        a.x = (float)(Math.sin(angles[0] + angle)*lengths[0]);
-        b.x = (float)(Math.sin(angles[1] + angle)*lengths[1]);
-        b.x = (float)(Math.sin(angles[2] + angle)*lengths[2]);
+        a.y = (float)(Math.sin(angles[0] + angle)*lengths[0]) + center.y;
+        b.y = (float)(Math.sin(angles[1] + angle)*lengths[1]) + center.y;
+        c.y = (float)(Math.sin(angles[2] + angle)*lengths[2]) + center.y;
 
         if (center.x < 0){
             center.x += WIDTH;
@@ -109,10 +108,11 @@ public class Player extends Movables{
      * checks to see if incoming object's center is within the bounds of this object
      * @return true if there is collision, false if no collision
      */
-    public boolean hasCollide(Enemy e){
-        return a.distTo(e.center) <= e.radius ||
-               b.distTo(e.center) <= e.radius ||
-               c.distTo(e.center) <= e.radius;
+    public boolean hasCollide(Movables m){
+        return a.distTo(m.center) <= m.radius ||
+               b.distTo(m.center) <= m.radius ||
+               c.distTo(m.center) <= m.radius ||
+               center.distTo(m.center) <= m.radius;
     }
 
     /**
@@ -148,11 +148,6 @@ public class Player extends Movables{
     }
 
     public boolean locationOOB(Point objectCenter){
-        return false;
-    }
-
-    @Override
-    boolean hasCollide(Point incomingCenter) {
         return false;
     }
 

@@ -6,6 +6,8 @@ import java.awt.*;
  * Created by Divya on 9/8/2017.
  */
 abstract public class Movables {
+    public Point center;
+    public float radius;
 
     /**
      * Called when the angle of the object is updated.
@@ -29,5 +31,5 @@ abstract public class Movables {
      *
      */
     abstract boolean locationOOB(Point objectCenter);
-    abstract boolean hasCollide(Point incomingCenter);
+    abstract boolean hasCollide(Movables m);
 }
