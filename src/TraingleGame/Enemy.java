@@ -18,15 +18,13 @@ public class Enemy extends Movables{
     float angle;
     float magnitude = 1;
     float angleMod;
-
-    float xVel = 0;
-    float yVel = 0;
-
     Point center;
     float radius;
-    int critProx = 400;
+    int critProx = 500;
     boolean isWithinCritProx = false;
 
+    public boolean oobDead = false;
+    public boolean normalDead = false;
     /**
      * Deque to hold and update the after-images of the object
      */
@@ -39,13 +37,7 @@ public class Enemy extends Movables{
         this.attraction = attraction;
         this.player = player;
         this.angle = (float)(Math.random()*Math.PI*2);
-
         angleMod = (float)(Math.random()*.1);
-    }
-
-    @Override
-    void explode() {
-
     }
 
     @Override
@@ -59,6 +51,7 @@ public class Enemy extends Movables{
             if (Math.pow((center.x - player.center.x), 2) + Math.pow((center.y - player.center.y), 2) <= Math.pow(critProx, 2)){
                 if (!isWithinCritProx) {
                     isWithinCritProx = true;
+
                 }
                 angle = (float)Math.PI + (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
                 center.x += Math.cos(angle) * magnitude;
@@ -77,14 +70,6 @@ public class Enemy extends Movables{
         angle += angleMod;
         if (Math.random() < .05) angleMod *= -1 ;
 
-        if (!isWithinCritProx){
-            xVel *= DRAG;
-            yVel *= DRAG;
-        }
-
-        center.x += xVel;
-        center.y += yVel;
-
         center.x = Math.min(Math.max(center.x, 0), WIDTH);
         center.y = Math.min(Math.max(center.y, 0), HEIGHT);
     }
@@ -97,7 +82,8 @@ public class Enemy extends Movables{
      *         true if location is out of bounds
      */
     public boolean locationOOB(Point objectCenter){
-        if(objectCenter.x> WIDTH || objectCenter.x<0 || objectCenter.y> HEIGHT || objectCenter.y<0){
+        Main m = new Main();
+        if(objectCenter.x>m.WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
             return true;
         }
         else return false;

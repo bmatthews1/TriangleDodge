@@ -2,6 +2,7 @@ package TraingleGame;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.WeakHashMap;
 
 import static TraingleGame.Main.HEIGHT;
@@ -29,25 +30,18 @@ public class Player extends Movables{
     boolean pEngines = false;
     boolean reverse = false;
     boolean leftStrafe = false;
+    boolean rigthStrafe = false;
+    Random random;
+    boolean dead;
     boolean rightStrafe = false;
 
-    /**
-     * Deque to hold and update the after-images of the object
-     */
-    Deque trails = new LinkedList<>();
-
     public Player(Point center, double magnitude, double angle){
-        this.center= center;
+        this.center = center;
         this.magnitude = magnitude;
         this.angle = angle;
         a = new Point(center.x, center.y - 32);
         b = new Point(center.x - 16, center.y + 16);
         c = new Point(center.x + 16, center.y + 16);
-    }
-
-    @Override
-    void explode() {
-
     }
 
     @Override
@@ -110,20 +104,7 @@ public class Player extends Movables{
         xVel *= DRAG;
         yVel *= DRAG;
     }
-    //public void renderExplode(){}
-    /**
-     * checks to see if location is out of bounds
-     * @param objectCenter
-     * @return false if location is not out of bounds
-     * @return true if location is out of bounds
-     */
-    public boolean locationOOB(Point objectCenter){
-        Main m = new Main();
-        if(objectCenter.x> WIDTH || objectCenter.x<0 || objectCenter.y> HEIGHT || objectCenter.y<0){
-            return true;
-        }
-        else return false;
-    }
+
     /**
      * checks to see if incoming object's center is within the bounds of this object
      * @param incomingCenter
@@ -167,4 +148,9 @@ public class Player extends Movables{
     {
         return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
     }
+
+    public boolean locationOOB(Point objectCenter){
+        return false;
+    }
+
 }

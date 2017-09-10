@@ -1,6 +1,7 @@
 package TraingleGame;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class Main extends PApplet{
     final int MAX_ENEMIES = 20;
     final int ENEMY_RADIUS = 20;
     final int MAGNITUDE = 10;
+    int score = 0;
+    int padding = 100;
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .4, -Math.PI/2);
@@ -29,11 +32,47 @@ public class Main extends PApplet{
         }
     }
 
-    public void makeEnemy(Point p, int radius, boolean attraction, Player player){
+    private void checkCollision(){
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = i+1; j < enemies.size(); j++) {
+                if(enemies.get(i).locationOOB(enemies.get(j).center)){
+                    enemies.get(i).oobDead = true;
+                    enemies.get(j).oobDead = true;
+                }else if(enemies.get(i).hasCollide(enemies.get(j).center)){
+                    enemies.get(i).normalDead = true;
+                    enemies.get(j).normalDead = true;
+                }
+            }
+            if(player.hasCollide(enemies.get(i).center)){
+                player.dead = true;
+            }
+        }
+        explode();
+    }
+
+    private void explode(){
+        if(player.dead) gameState = GameState.gameover;
+        for (int i = 0; i < enemies.size(); i++) {
+            if(enemies.get(i).normalDead){
+                enemies.remove(i);
+                setScore(score += 2);
+                makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
+            }else if(enemies.get(i).oobDead){
+                enemies.remove(i);
+                makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
+            }
+        }
+    }
+
+    private void setScore(int score){
+        this.score = score;
+    }
+
+    private void makeEnemy(Point p, int radius, boolean attraction, Player player){
         enemies.add(new Enemy(p, radius, attraction, player));
     }
 
-    public boolean getAttraction(){
+    private boolean getAttraction(){
         return random(1) < 0.5 ? true : false;
     }
 
@@ -42,17 +81,17 @@ public class Main extends PApplet{
         float y;
         float rand = random(0, 1);
         if (rand > 0 && rand < 0.25) {
-            x = random(0, WIDTH);
-            y = HEIGHT;
+            x = random(0+padding, WIDTH-padding);
+            y = HEIGHT-padding;
         } else if (rand > 0.25 && rand < 0.5) {
-            x = WIDTH;
-            y = random(0, HEIGHT);
+            x = WIDTH-padding;
+            y = random(0+padding, HEIGHT-padding);
         } else if (rand > 0.5 && rand < 0.75) {
-            x = random(0, WIDTH);
-            y = 0;
+            x = random(0+padding, WIDTH-padding);
+            y = 0+padding;
         } else {
-            x = 0;
-            y = random(0, HEIGHT);
+            x = 0+padding;
+            y = random(0+padding, HEIGHT-padding);
         }
 
         return new Point((int) x, (int) y);
@@ -125,13 +164,15 @@ public class Main extends PApplet{
     /**
      * called when the gameState is playing
      */
-    private void playing(){
+    private void playing() {
         player.update();
-        for (Enemy e : enemies){
+        for (Enemy e : enemies) {
             e.update();
             drawEnemy(e);
         }
         drawPlayer();
+        checkCollision();
+        renderScore();
     }
 
     /**
@@ -145,7 +186,8 @@ public class Main extends PApplet{
      * called when the gameState is gameover
      */
     private void gameOver(){
-
+        fill(255);
+        rect(0, 0, WIDTH, HEIGHT);
     }
 
     private void drawTriangle(Triangle t){
@@ -155,6 +197,12 @@ public class Main extends PApplet{
         triangle(t.points[0].x + t.x, t.points[0].y + t.y,
                  t.points[1].x + t.x, t.points[1].y + t.y,
                  t.points[2].x + t.x, t.points[2].y + t.y);
+    }
+
+    public void renderScore(){
+        fill(30);
+        stroke(40);
+        rect(WIDTH-(WIDTH/8), 0, (WIDTH/8)-2, HEIGHT/4);
     }
 
     /**
@@ -260,30 +308,11 @@ public class Main extends PApplet{
 
     @Override
     public void keyPressed() {
-
         if (key == CODED) {
             if (keyCode == UP) player.pEngines = true;
             if (keyCode == DOWN) player.reverse = true;
             if (keyCode == LEFT) player.leftStrafe = true;
             if (keyCode == RIGHT) player.rightStrafe = true;
-
-//            if (keyCode == UP) {
-//                player.a.y -= (MAGNITUDE*2);
-//                player.b.y -= (MAGNITUDE*2);
-//                player.c.y -= (MAGNITUDE*2);
-//            } else if (keyCode == DOWN) {
-//                player.a.y += (MAGNITUDE*2);
-//                player.b.y += (MAGNITUDE*2);
-//                player.c.y += (MAGNITUDE*2);
-//            } else if (keyCode == LEFT) {
-//                player.a.x -= (MAGNITUDE*2);
-//                player.b.x -= (MAGNITUDE*2);
-//                player.c.x -= (MAGNITUDE*2);
-//            } else if (keyCode == RIGHT) {
-//                player.a.x += (MAGNITUDE*2);
-//                player.b.x += (MAGNITUDE*2);
-//                player.c.x += (MAGNITUDE*2);
-//            }
         }
     }
 
