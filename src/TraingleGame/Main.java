@@ -188,7 +188,9 @@ public class Main extends PApplet{
     private void gameOver(){
         textSize(60);
         fill(255);
-        text("YOU LOST. TRY AGAIN!", (WIDTH/2)-(WIDTH/6), HEIGHT/2);
+        textAlign(CENTER);
+        text("YOU LOST. TRY AGAIN!", (WIDTH/2), HEIGHT/2);
+        textAlign(RIGHT);
     }
 
     private void drawTriangle(Triangle t){
@@ -203,8 +205,9 @@ public class Main extends PApplet{
     public void renderScore(){
         textSize(60);
         fill(255);
-        text("Score: ", (WIDTH-(WIDTH/3)/2), HEIGHT/15);
-        text(score, (WIDTH-(WIDTH/8)/2), HEIGHT/15);
+        String scoreText = "Score: " + score;
+        text(scoreText, (WIDTH-textWidth("Score: 0000")), HEIGHT/15);
+        //text(score, (WIDTH-(WIDTH/8)/2), HEIGHT/15);
     }
 
     /**
