@@ -90,7 +90,6 @@ public class Main extends PApplet{
 
         if (random(1) < .4 && triangles.size() < 50){
             Triangle t = Triangle.getRandomTriangle(RADIUS/2);
-            System.out.println(t);
             triangles.add(t);
         }
 
@@ -101,7 +100,6 @@ public class Main extends PApplet{
             if (!t.inBounds()){
                 triangles.remove(i);
                 i--;
-                System.out.println("removing triangle");
             }
         }
 
