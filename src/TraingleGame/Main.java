@@ -47,8 +47,6 @@ public class Main extends PApplet{
             }
             if(player.hasCollide(enemies.get(i))){
                 player.dead = true;
-                System.out.println(enemies.get(i).center + ", " + enemies.get(i).radius);
-                System.out.println(player.center);
             }
         }
         explode();
@@ -210,9 +208,10 @@ public class Main extends PApplet{
         fill(255);
         textAlign(CENTER);
         text("YOU LOST :(", (WIDTH/2), HEIGHT/4);
-        text("Press space to try again", (WIDTH/2), HEIGHT/2);
-        text("Score: "+score, (WIDTH/2), HEIGHT-(HEIGHT/4));
-        textAlign(RIGHT);
+        text("Score: "+score, (WIDTH/2), HEIGHT/2);
+        textSize(40);
+        text("Press space to try again", (WIDTH/2), HEIGHT-(HEIGHT/6));
+        text("Press esc to exit", (WIDTH/2), HEIGHT-(HEIGHT/15));
     }
 
     private void drawTriangle(Triangle t){
