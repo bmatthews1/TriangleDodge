@@ -7,12 +7,21 @@ import java.util.LinkedList;
  * Created by Divya on 9/8/2017.
  */
 public class Player extends Movables{
+    public static final float DRAG = .95f;
+
     Point a;
     Point b;
     Point c;
     Point center;
     double angle;
     double magnitude;
+    double xVel = 0;
+    double yVel = 0;
+
+    boolean pEngines = false;
+    boolean reverse = false;
+    boolean leftStrafe = false;
+    boolean rigthStrafe = false;
 
     /**
      * Deque to hold and update the after-images of the object
@@ -23,9 +32,9 @@ public class Player extends Movables{
         this.center= center;
         this.magnitude = magnitude;
         this.angle = angle;
-        c = new Point(200, 250);
         a = new Point(150, 350);
         b = new Point(350, 350);
+        c = new Point(center.x, center.y);
 
     }
 

@@ -18,6 +18,8 @@ public class Main extends PApplet{
     ArrayList<Enemy> enemies  = new ArrayList<>();
     ArrayList<Triangle> triangles = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
+    final int MAX_ENEMIES = 20;
+    final int ENEMY_RADIUS = 20;
     final int MAGNITUDE = 10;
 
     public void init(){
@@ -32,7 +34,7 @@ public class Main extends PApplet{
     }
 
     public boolean getAttraction(){
-        return random.nextInt() < 0.5 ? true : false;
+        return random(1) < 0.5 ? true : false;
     }
 
     private Point getRandomPoint() {
