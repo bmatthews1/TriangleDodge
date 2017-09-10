@@ -17,7 +17,7 @@ public class Enemy extends Movables{
     float angleMod;
     Point center;
     float radius;
-    int critProx = 10000;
+    int critProx = 500;
     boolean isWithinCritProx = false;
     boolean normalDead = false;
     boolean oobDead = false;
@@ -46,7 +46,6 @@ public class Enemy extends Movables{
             if (Math.pow((center.x - player.center.x), 2) + Math.pow((center.y - player.center.y), 2) <= Math.pow(critProx, 2)){
                 if (!isWithinCritProx) {
                     isWithinCritProx = true;
-
                 }
                 angle = (float)Math.PI + (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
                 center.x += Math.cos(angle) * magnitude;
@@ -65,8 +64,6 @@ public class Enemy extends Movables{
         angle += angleMod;
         if (Math.random() < .05) angleMod *= -1 ;
 
-        center.x = Math.min(Math.max(center.x, 0), WIDTH);
-        center.y = Math.min(Math.max(center.y, 0), HEIGHT);
     }
 
     /**
