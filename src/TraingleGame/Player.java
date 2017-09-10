@@ -2,12 +2,18 @@ package TraingleGame;
 
 import java.util.Deque;
 import java.util.LinkedList;
+import java.util.WeakHashMap;
+
+import static TraingleGame.Main.HEIGHT;
+import static TraingleGame.Main.WIDTH;
 
 /**
  * Created by Divya on 9/8/2017.
  */
 public class Player extends Movables{
     public static final float DRAG = .95f;
+    public static final float playerScale = .8f;
+    public static final float angleMod = .1f;
 
     Point a;
     Point b;
@@ -21,7 +27,7 @@ public class Player extends Movables{
     boolean pEngines = false;
     boolean reverse = false;
     boolean leftStrafe = false;
-    boolean rigthStrafe = false;
+    boolean rightStrafe = false;
 
     /**
      * Deque to hold and update the after-images of the object
@@ -32,10 +38,9 @@ public class Player extends Movables{
         this.center= center;
         this.magnitude = magnitude;
         this.angle = angle;
-        a = new Point(center.x, center.y - 40);
-        b = new Point(center.x - 20, center.y + 20);
-        c = new Point(center.x + 20, center.y + 20);
-
+        a = new Point(center.x, center.y - 32);
+        b = new Point(center.x - 16, center.y + 16);
+        c = new Point(center.x + 16, center.y + 16);
     }
 
     @Override
@@ -50,7 +55,58 @@ public class Player extends Movables{
 
     @Override
     void update() {
+        if (pEngines){
+            xVel += Math.cos(angle)*magnitude;
+            yVel += Math.sin(angle)*magnitude;
+        }
+        if (reverse){
+            xVel -= Math.cos(angle)*magnitude/2;
+            yVel -= Math.sin(angle)*magnitude/2;
+        }
+        if (rightStrafe){
+            angle += angleMod;
+        }
+        if (leftStrafe){
+            angle -= angleMod;
+        }
 
+        center.x += xVel;
+        a.x += xVel;
+        b.x += xVel;
+        c.x += xVel;
+
+        center.y += yVel;
+        a.y += yVel;
+        b.y += yVel;
+        c.y += yVel;
+
+        if (center.x < 0){
+            center.x += WIDTH;
+            a.x += WIDTH;
+            b.x += WIDTH;
+            c.x += WIDTH;
+        }
+        if (center.y < 0){
+            center.y += HEIGHT;
+            a.y += HEIGHT;
+            b.y += HEIGHT;
+            c.y += HEIGHT;
+        }
+        if (center.x > WIDTH){
+            center.x -= WIDTH;
+            a.x -= WIDTH;
+            b.x -= WIDTH;
+            c.x -= WIDTH;
+        }
+        if (center.y > HEIGHT){
+            center.y -= HEIGHT;
+            a.y -= HEIGHT;
+            b.y -= HEIGHT;
+            c.y -= HEIGHT;
+        }
+
+        xVel *= DRAG;
+        yVel *= DRAG;
     }
     //public void renderExplode(){}
     /**
@@ -61,7 +117,7 @@ public class Player extends Movables{
      */
     public boolean locationOOB(Point objectCenter){
         Main m = new Main();
-        if(objectCenter.x>m.WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
+        if(objectCenter.x> WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
             return true;
         }
         else return false;

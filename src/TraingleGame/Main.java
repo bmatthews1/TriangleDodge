@@ -23,7 +23,7 @@ public class Main extends PApplet{
     final int MAGNITUDE = 10;
 
     public void init(){
-        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), 1, 0.0);
         while (enemies.size() <= MAX_ENEMIES) {
             makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
@@ -126,6 +126,7 @@ public class Main extends PApplet{
      * called when the gameState is playing
      */
     private void playing(){
+        player.update();
         for (Enemy e : enemies){
             e.update();
             drawEnemy(e);
@@ -188,33 +189,78 @@ public class Main extends PApplet{
      * draws the specified player
      */
     private void drawPlayer(){
-        player.update();
+        pushMatrix();
+        strokeWeight(1);
         fill(40);
-        stroke(0, 100, 100);
+        stroke(120, 100, 100);
+        translate(player.center.x, player.center.y);
+        rotate((float)player.angle + PI/2);
+        translate(-player.center.x, -player.center.y);
+
+
+        rect(player.b.x - 4,player.b.y - 10, 8, 6);
+        if (player.leftStrafe){
+
+        }
+        rect(player.c.x - 4, player.c.y - 10, 8, 6);
+        if (player.rightStrafe){
+
+        }
+
+        rect(player.center.x - 12, player.center.y - 12, 5, 10);
+        rect(player.center.x + 7, player.center.y - 12, 5, 10);
+        if (player.reverse){
+
+        }
+        rect(player.b.x + 8, player.b.y, 16, 8);
+        if (player.pEngines){
+
+        }
         triangle(player.a.x, player.a.y, player.b.x, player.b.y, player.c.x, player.c.y);
+
+        fill(120, 100, 100);
+        quad(player.a.x - 1, player.a.y + 10,
+             player.a.x + 1, player.a.y + 10,
+             player.a.x + 3, player.a.y + 16,
+             player.a.x - 3, player.a.y + 16);
+        popMatrix();
     }
 
     @Override
     public void keyPressed() {
 
         if (key == CODED) {
-            if (keyCode == UP) {
-                player.a.y -= (MAGNITUDE*2);
-                player.b.y -= (MAGNITUDE*2);
-                player.c.y -= (MAGNITUDE*2);
-            } else if (keyCode == DOWN) {
-                player.a.y += (MAGNITUDE*2);
-                player.b.y += (MAGNITUDE*2);
-                player.c.y += (MAGNITUDE*2);
-            } else if (keyCode == LEFT) {
-                player.a.x -= (MAGNITUDE*2);
-                player.b.x -= (MAGNITUDE*2);
-                player.c.x -= (MAGNITUDE*2);
-            } else if (keyCode == RIGHT) {
-                player.a.x += (MAGNITUDE*2);
-                player.b.x += (MAGNITUDE*2);
-                player.c.x += (MAGNITUDE*2);
-            }
+            if (keyCode == UP) player.pEngines = true;
+            if (keyCode == DOWN) player.reverse = true;
+            if (keyCode == LEFT) player.leftStrafe = true;
+            if (keyCode == RIGHT) player.rightStrafe = true;
+
+//            if (keyCode == UP) {
+//                player.a.y -= (MAGNITUDE*2);
+//                player.b.y -= (MAGNITUDE*2);
+//                player.c.y -= (MAGNITUDE*2);
+//            } else if (keyCode == DOWN) {
+//                player.a.y += (MAGNITUDE*2);
+//                player.b.y += (MAGNITUDE*2);
+//                player.c.y += (MAGNITUDE*2);
+//            } else if (keyCode == LEFT) {
+//                player.a.x -= (MAGNITUDE*2);
+//                player.b.x -= (MAGNITUDE*2);
+//                player.c.x -= (MAGNITUDE*2);
+//            } else if (keyCode == RIGHT) {
+//                player.a.x += (MAGNITUDE*2);
+//                player.b.x += (MAGNITUDE*2);
+//                player.c.x += (MAGNITUDE*2);
+//            }
+        }
+    }
+
+    public void keyReleased(){
+        if (key == CODED) {
+            if (keyCode == UP) player.pEngines = false;
+            if (keyCode == DOWN) player.reverse = false;
+            if (keyCode == LEFT) player.leftStrafe = false;
+            if (keyCode == RIGHT) player.rightStrafe = false;
         }
     }
 
