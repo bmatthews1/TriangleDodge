@@ -1,9 +1,6 @@
 package TraingleGame;
 
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.Random;
-import java.util.WeakHashMap;
+import java.util.*;
 
 import static TraingleGame.Main.HEIGHT;
 import static TraingleGame.Main.WIDTH;
@@ -21,6 +18,9 @@ public class Player extends Movables{
     Point a;
     Point b;
     Point c;
+
+    int count = 0;
+
     double angle;
     double magnitude;
     double xVel = 0;
@@ -34,6 +34,8 @@ public class Player extends Movables{
     boolean dead;
     boolean rightStrafe = false;
 
+    public ArrayList<Point> history = new ArrayList<>();
+
     public Player(Point center, double magnitude, double angle){
         this.center = center;
         this.magnitude = magnitude;
@@ -41,6 +43,7 @@ public class Player extends Movables{
         a = new Point(center.x, center.y - 32);
         b = new Point(center.x - 16, center.y + 16);
         c = new Point(center.x + 16, center.y + 16);
+        history.add(new Point(center.x, center.y));
     }
 
     @Override
@@ -102,6 +105,11 @@ public class Player extends Movables{
 
         xVel *= DRAG;
         yVel *= DRAG;
+
+        float dist = center.distTo(history.get(history.size() - 1));
+        if (dist > 10) history.add(new Point(center.x, center.y));
+        if (history.size() > 40) history.remove(0);
+        count++;
     }
 
     /**

@@ -13,7 +13,7 @@ import java.util.Random;
 public class Main extends PApplet{
     private static final float numSpikes = 40f;
 
-    public static float WIDTH , HEIGHT , CENTER_X ,CENTER_Y , RADIUS;
+    public static float WIDTH , HEIGHT , CENTER_X ,CENTER_Y , RADIUS, PORTAL;
 
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
@@ -40,7 +40,7 @@ public class Main extends PApplet{
                 if(enemies.get(i).locationOOB(enemies.get(j).center)){
                     enemies.get(i).oobDead = true;
                     enemies.get(j).oobDead = true;
-                }else if(enemies.get(i).hasCollide(enemies.get(j))){
+                }else if(!(enemies.get(i).attraction && enemies.get(j).attraction) && enemies.get(i).hasCollide(enemies.get(j))){
                     enemies.get(i).normalDead = true;
                     enemies.get(j).normalDead = true;
                 }
@@ -117,6 +117,7 @@ public class Main extends PApplet{
 
     @Override
     public void draw(){
+        frame.requestFocus();
         if (frameCount == 1){
             colorMode(HSB, 360, 100, 100, 100);
             WIDTH = width;
@@ -124,6 +125,7 @@ public class Main extends PApplet{
             CENTER_X = WIDTH/2f;
             CENTER_Y = HEIGHT/2f;
             RADIUS = (float)Math.sqrt(WIDTH*WIDTH + HEIGHT*HEIGHT)/2;
+            PORTAL = RADIUS/7f;
             MAX_ENEMIES = (int)(WIDTH*HEIGHT/52000);
             START_NUM_ENEMIES = MAX_ENEMIES;
             padding = (int)(RADIUS/5);
@@ -167,6 +169,7 @@ public class Main extends PApplet{
         fill(255);
         textAlign(CENTER);
         text("Press space to Start", (WIDTH/2), HEIGHT/2);
+        textAlign(LEFT);
     }
 
     /**
@@ -198,6 +201,7 @@ public class Main extends PApplet{
         fill(255);
         textAlign(CENTER);
         text("Press space to resume", (WIDTH/2), HEIGHT/2);
+        textAlign(LEFT);
     }
 
     /**
@@ -212,6 +216,7 @@ public class Main extends PApplet{
         textSize(40);
         text("Press space to try again", (WIDTH/2), HEIGHT-(HEIGHT/6));
         text("Press esc to exit", (WIDTH/2), HEIGHT-(HEIGHT/15));
+        textAlign(LEFT);
     }
 
     private void drawTriangle(Triangle t){
@@ -227,6 +232,7 @@ public class Main extends PApplet{
         textSize(60);
         fill(255);
         String scoreText = "Score: " + score;
+        textAlign(LEFT);
         text(scoreText, (WIDTH-textWidth("Score: 0000")), HEIGHT/15);
     }
 
@@ -262,6 +268,24 @@ public class Main extends PApplet{
      * draws the specified player
      */
     private void drawPlayer(){
+
+//        //fill(120, 100, 100, 10);
+//        noFill();
+//        stroke(120, 100, 100, 20);
+//        rectMode(CENTER);
+//        for (int i = 0; i < player.history.size(); i++){
+//            //fill(120, 100, 100, i);
+//            Point p = player.history.get(i);
+//            pushMatrix();
+//            translate(p.x, p.y);
+//            rotate((((i)%16)/16f)*PI*2);
+//            rect(0, 0, 10, 10);
+//            popMatrix();
+//        }
+//        rectMode(CORNER);
+
+
+
         pushMatrix();
         strokeWeight(1);
         fill(120, 100, 20);
@@ -329,6 +353,32 @@ public class Main extends PApplet{
              player.center.x + 3, player.center.y - 20,
              player.center.x - 3, player.center.y - 20);
         popMatrix();
+
+
+        noStroke();
+        if (player.center.x < PORTAL || player.center.x > WIDTH - PORTAL){
+            float dist = Math.min(player.center.x, WIDTH - player.center.x);
+            float perc = (PORTAL - dist)/PORTAL;
+            perc *= perc;
+            fill(120, 100, 100, (1f-perc)*20);
+
+            fill(120, 100, 100, 10);
+            for (int i = 10; i > 0; i--){
+                ellipse(0, player.center.y, i*20*perc, i*40*perc);
+                ellipse(WIDTH, player.center.y, i*20*perc, i*40*perc);
+            }
+        }
+        if (player.center.y < PORTAL || player.center.y > HEIGHT - PORTAL){
+            float dist = Math.min(player.center.y, HEIGHT - player.center.y);
+            float perc = ((PORTAL - dist)/PORTAL);
+            perc *= perc;
+            fill(120, 100, 100, (1f-perc)*20);
+
+            for (int i = 10; i > 0; i--){
+                ellipse(player.center.x, 0, i*40*perc, i*20*perc);
+                ellipse(player.center.x, HEIGHT, i*40*perc, i*20*perc);
+            }
+        }
     }
 
     @Override
