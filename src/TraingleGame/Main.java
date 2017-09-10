@@ -10,10 +10,8 @@ import java.util.Random;
  */
 public class Main extends PApplet{
     private static final float numSpikes = 40f;
-
     public static final float WIDTH = 800;
     public static final float HEIGHT = 600;
-
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
     final int MAX_ENEMIES = 20;
@@ -158,7 +156,29 @@ public class Main extends PApplet{
         triangle(player.a.x, player.a.y, player.b.x, player.b.y, player.c.x, player.c.y);
     }
 
+    @Override
+    public void keyPressed() {
 
+        if (key == CODED) {
+            if (keyCode == UP) {
+                player.a.y -= (MAGNITUDE*2);
+                player.b.y -= (MAGNITUDE*2);
+                player.c.y -= (MAGNITUDE*2);
+            } else if (keyCode == DOWN) {
+                player.a.y += (MAGNITUDE*2);
+                player.b.y += (MAGNITUDE*2);
+                player.c.y += (MAGNITUDE*2);
+            } else if (keyCode == LEFT) {
+                player.a.x -= (MAGNITUDE*2);
+                player.b.x -= (MAGNITUDE*2);
+                player.c.x -= (MAGNITUDE*2);
+            } else if (keyCode == RIGHT) {
+                player.a.x += (MAGNITUDE*2);
+                player.b.x += (MAGNITUDE*2);
+                player.c.x += (MAGNITUDE*2);
+            }
+        }
+    }
 
     public static void main(String[] args){
         Main m = new Main();
