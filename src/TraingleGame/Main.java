@@ -18,10 +18,10 @@ public class Main extends PApplet{
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
     ArrayList<Triangle> triangles = new ArrayList<>();
-    final int START_NUM_ENEMIES = 10;
-    final int MAX_ENEMIES = 20;
-    final int ENEMY_RADIUS = 10;
-    final int MAGNITUDE = 15;
+    static int START_NUM_ENEMIES = 10;
+    static int MAX_ENEMIES = 20;
+    static int ENEMY_RADIUS = 10;
+    static int MAGNITUDE = 15;
     int score = 0;
     int padding = 150;
 
@@ -126,6 +126,7 @@ public class Main extends PApplet{
             CENTER_X = WIDTH/2f;
             CENTER_Y = HEIGHT/2f;
             RADIUS = (float)Math.sqrt(WIDTH*WIDTH + HEIGHT*HEIGHT)/2;
+            MAX_ENEMIES = (int)(RADIUS/30);
             init();
         }
 
