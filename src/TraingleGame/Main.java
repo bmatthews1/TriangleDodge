@@ -5,6 +5,7 @@ import processing.core.PFont;
 import processing.core.PShapeSVG;
 
 import javax.sound.sampled.AudioInputStream;
+import java.io.File;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
@@ -445,16 +446,17 @@ public class Main extends PApplet{
 
     public static void main(String[] args){
         Main m = new Main();
+        m.themeMusic();
         PApplet.runSketch(new String[]{"Main"}, m);
     }
 
     public void themeMusic(){
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(""));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/starsNstuff.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
-            Thread.sleep(1000000000);
+            //Thread.sleep(1000000000);
         } catch (Exception ex){
             ex.printStackTrace();
         }
