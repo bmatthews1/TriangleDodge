@@ -4,9 +4,12 @@ import processing.core.PApplet;
 import processing.core.PFont;
 import processing.core.PShapeSVG;
 
+import javax.sound.sampled.AudioInputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  * Created by Ben on 9/8/2017.
@@ -444,4 +447,17 @@ public class Main extends PApplet{
         Main m = new Main();
         PApplet.runSketch(new String[]{"Main"}, m);
     }
+
+    public void themeMusic(){
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(this.getClass().getResource(""));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            Thread.sleep(1000000000);
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
 }
