@@ -53,16 +53,6 @@ public class Main extends PApplet{
         }
 
         background(0, 0, 0);
-        switch (gameState){
-            case menu : menu();
-                break;
-            case playing : playing();
-                break;
-            case paused : paused();
-                break;
-            case gameover: gameOver();
-                break;
-        }
 
         if (random(1) < .4 && triangles.size() < 50){
             Triangle t = Triangle.getRandomTriangle(RADIUS/2);
@@ -70,7 +60,6 @@ public class Main extends PApplet{
             triangles.add(t);
         }
 
-        if (frameCount%20 == 0) System.out.println(triangles.size());
         for (int i = 0; i < triangles.size(); i++){
             Triangle t = triangles.get(i);
             t.update();
@@ -80,6 +69,17 @@ public class Main extends PApplet{
                 i--;
                 System.out.println("removing triangle");
             }
+        }
+
+        switch (gameState){
+            case menu : menu();
+                break;
+            case playing : playing();
+                break;
+            case paused : paused();
+                break;
+            case gameover: gameOver();
+                break;
         }
     }
 
