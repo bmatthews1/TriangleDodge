@@ -17,9 +17,10 @@ public class Enemy extends Movables{
     float angleMod;
     Point center;
     float radius;
-    int critProx = 1000;
+    int critProx = 10000;
     boolean isWithinCritProx = false;
-
+    boolean normalDead = false;
+    boolean oobDead = false;
     /**
      * Deque to hold and update the after-images of the object
      */
@@ -35,15 +36,9 @@ public class Enemy extends Movables{
         angleMod = (float)(Math.random()*.1);
     }
 
-    @Override
-    void explode() {
-
-    }
 
     @Override
-    void rotate(float angle) {
-
-    }
+    void rotate(float angle) {}
 
     @Override
     void update() {
@@ -73,7 +68,6 @@ public class Enemy extends Movables{
         center.x = Math.min(Math.max(center.x, 0), WIDTH);
         center.y = Math.min(Math.max(center.y, 0), HEIGHT);
     }
-    //public void renderExplode(){}
 
     /**
      * checks to see if location is out of bounds

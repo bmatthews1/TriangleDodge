@@ -21,19 +21,53 @@ public class Main extends PApplet{
     final int MAX_ENEMIES = 20;
     final int ENEMY_RADIUS = 20;
     final int MAGNITUDE = 10;
+    int score = 0;
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .5, -Math.PI/2);
         while (enemies.size() <= MAX_ENEMIES) {
             makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
+        checkCollision();
     }
 
-    public void makeEnemy(Point p, int radius, boolean attraction, Player player){
+    private void checkCollision(){
+        for (int i = 0; i < enemies.size(); i++) {
+            for (int j = i+1; j < enemies.size(); j++) {
+                if(enemies.get(i).locationOOB(enemies.get(j).center)){
+                    enemies.get(i).oobDead = true;
+                    enemies.get(j).oobDead = true;
+                }else if(enemies.get(i).hasCollide(enemies.get(j).center)){
+                    enemies.get(i).normalDead = true;
+                    enemies.get(j).normalDead = true;
+                }
+            }
+            if(player.hasCollide(enemies.get(i).center)){
+                player.dead = true;
+            }
+        }
+        explode();
+    }
+
+    private void explode(){
+        if(player.dead) gameState = GameState.gameover;
+        for (int i = 0; i < enemies.size(); i++) {
+            if(enemies.get(i).normalDead){
+                enemies.remove(i);
+                setScore(score += 2);
+            }else if(enemies.get(i).oobDead) enemies.remove(i);
+        }
+    }
+
+    private void setScore(int score){
+        this.score = score;
+    }
+
+    private void makeEnemy(Point p, int radius, boolean attraction, Player player){
         enemies.add(new Enemy(p, radius, attraction, player));
     }
 
-    public boolean getAttraction(){
+    private boolean getAttraction(){
         return random(1) < 0.5 ? true : false;
     }
 
@@ -145,7 +179,8 @@ public class Main extends PApplet{
      * called when the gameState is gameover
      */
     private void gameOver(){
-
+        fill(0);
+        rect(0, 0, WIDTH, HEIGHT);
     }
 
     private void drawTriangle(Triangle t){
@@ -228,7 +263,6 @@ public class Main extends PApplet{
 
     @Override
     public void keyPressed() {
-
         if (key == CODED) {
             if (keyCode == UP) player.pEngines = true;
             if (keyCode == DOWN) player.reverse = true;

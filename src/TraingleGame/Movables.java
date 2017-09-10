@@ -6,10 +6,6 @@ import java.awt.*;
  * Created by Divya on 9/8/2017.
  */
 abstract public class Movables {
-    /**
-     * Called when this object dies
-     */
-    abstract void explode();
 
     /**
      * Called when the angle of the object is updated.
