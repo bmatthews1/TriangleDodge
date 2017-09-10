@@ -23,13 +23,13 @@ public class Main extends PApplet{
     final int ENEMY_RADIUS = 20;
     final int MAGNITUDE = 10;
     int score = 0;
+    int padding = 100;
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .5, -Math.PI/2);
         while (enemies.size() <= MAX_ENEMIES) {
             makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
-        checkCollision();
     }
 
     private void checkCollision(){
@@ -56,7 +56,11 @@ public class Main extends PApplet{
             if(enemies.get(i).normalDead){
                 enemies.remove(i);
                 setScore(score += 2);
-            }else if(enemies.get(i).oobDead) enemies.remove(i);
+                makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
+            }else if(enemies.get(i).oobDead){
+                enemies.remove(i);
+                makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
+            }
         }
     }
 
@@ -77,17 +81,17 @@ public class Main extends PApplet{
         float y;
         float rand = random(0, 1);
         if (rand > 0 && rand < 0.25) {
-            x = random(0, WIDTH);
-            y = HEIGHT;
+            x = random(0+padding, WIDTH-padding);
+            y = HEIGHT-padding;
         } else if (rand > 0.25 && rand < 0.5) {
-            x = WIDTH;
-            y = random(0, HEIGHT);
+            x = WIDTH-padding;
+            y = random(0+padding, HEIGHT-padding);
         } else if (rand > 0.5 && rand < 0.75) {
-            x = random(0, WIDTH);
-            y = 0;
+            x = random(0+padding, WIDTH-padding);
+            y = 0+padding;
         } else {
-            x = 0;
-            y = random(0, HEIGHT);
+            x = 0+padding;
+            y = random(0+padding, HEIGHT-padding);
         }
 
         return new Point((int) x, (int) y);
@@ -160,13 +164,15 @@ public class Main extends PApplet{
     /**
      * called when the gameState is playing
      */
-    private void playing(){
+    private void playing() {
         player.update();
-        for (Enemy e : enemies){
+        for (Enemy e : enemies) {
             e.update();
             drawEnemy(e);
         }
         drawPlayer();
+        checkCollision();
+        renderScore();
     }
 
     /**
@@ -180,7 +186,7 @@ public class Main extends PApplet{
      * called when the gameState is gameover
      */
     private void gameOver(){
-        fill(0);
+        fill(255);
         rect(0, 0, WIDTH, HEIGHT);
     }
 
@@ -191,6 +197,12 @@ public class Main extends PApplet{
         triangle(t.points[0].x + t.x, t.points[0].y + t.y,
                  t.points[1].x + t.x, t.points[1].y + t.y,
                  t.points[2].x + t.x, t.points[2].y + t.y);
+    }
+
+    public void renderScore(){
+        fill(30);
+        stroke(40);
+        rect(WIDTH-(WIDTH/8), 0, (WIDTH/8)-2, HEIGHT/4);
     }
 
     /**
@@ -269,24 +281,6 @@ public class Main extends PApplet{
             if (keyCode == DOWN) player.reverse = true;
             if (keyCode == LEFT) player.leftStrafe = true;
             if (keyCode == RIGHT) player.rightStrafe = true;
-
-//            if (keyCode == UP) {
-//                player.a.y -= (MAGNITUDE*2);
-//                player.b.y -= (MAGNITUDE*2);
-//                player.c.y -= (MAGNITUDE*2);
-//            } else if (keyCode == DOWN) {
-//                player.a.y += (MAGNITUDE*2);
-//                player.b.y += (MAGNITUDE*2);
-//                player.c.y += (MAGNITUDE*2);
-//            } else if (keyCode == LEFT) {
-//                player.a.x -= (MAGNITUDE*2);
-//                player.b.x -= (MAGNITUDE*2);
-//                player.c.x -= (MAGNITUDE*2);
-//            } else if (keyCode == RIGHT) {
-//                player.a.x += (MAGNITUDE*2);
-//                player.b.x += (MAGNITUDE*2);
-//                player.c.x += (MAGNITUDE*2);
-//            }
         }
     }
 
