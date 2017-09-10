@@ -23,7 +23,7 @@ public class Main extends PApplet{
     final int MAGNITUDE = 10;
 
     public void init(){
-        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), 1, 0.0);
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .5, -Math.PI/2);
         while (enemies.size() <= MAX_ENEMIES) {
             makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
@@ -88,7 +88,7 @@ public class Main extends PApplet{
 
         background(0, 0, 0);
 
-        if (random(1) < .4 && triangles.size() < 50){
+        if (random(1) < .4 && triangles.size() < 20){
             Triangle t = Triangle.getRandomTriangle(RADIUS/2);
             triangles.add(t);
         }

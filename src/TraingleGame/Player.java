@@ -11,7 +11,7 @@ import static TraingleGame.Main.WIDTH;
  * Created by Divya on 9/8/2017.
  */
 public class Player extends Movables{
-    public static final float DRAG = .95f;
+    public static final float DRAG = .98f;
     public static final float playerScale = .8f;
     public static final float angleMod = .1f;
 
