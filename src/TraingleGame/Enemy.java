@@ -17,7 +17,8 @@ public class Enemy extends Movables{
     float angleMod;
     Point center;
     float radius;
-    int critProx = 200;
+    int critProx = 1000;
+    boolean isWithinCritProx = false;
 
     /**
      * Deque to hold and update the after-images of the object
@@ -46,20 +47,22 @@ public class Enemy extends Movables{
 
     @Override
     void update() {
-        if(!attraction){
-            if(Math.pow((center.x-player.center.x), 2)+Math.pow((center.y-player.center.y),2) <= critProx) {
-                center.x += Math.cos(angle) * magnitude * (-1);
-                center.y += Math.sin(angle) * magnitude * (-1);
+        if (!attraction) {
+            if (Math.pow((center.x - player.center.x), 2) + Math.pow((center.y - player.center.y), 2) <= Math.pow(critProx, 2)){
+                if (!isWithinCritProx) {
+                    isWithinCritProx = true;
+
+                }
+                angle = (float)Math.PI + (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
+                center.x += Math.cos(angle) * magnitude;
+                center.y += Math.sin(angle) * magnitude;
+            }else {
+                isWithinCritProx = false;
+                center.x += Math.cos(angle) * magnitude;
+                center.y += Math.sin(angle) * magnitude;
             }
-            else{
-                center.x += Math.cos(angle) * magnitude ;
-                center.y += Math.sin(angle) * magnitude ;
-            }
-        }
-        else{
-            if(Math.pow((center.x-player.center.x), 2)+Math.pow((center.y-player.center.y),2) <= critProx){
-                angle = (float)(Math.atan((double)((center.y-player.center.y)/(center.x-player.center.x))));
-            }
+        }else{
+            angle = (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
             center.x += Math.cos(angle) * magnitude ;
             center.y += Math.sin(angle) * magnitude ;
         }
