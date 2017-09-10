@@ -43,8 +43,10 @@ public class Main extends PApplet{
                     enemies.get(j).normalDead = true;
                 }
             }
-            if(player.hasCollide(enemies.get(i).center)){
+            if(player.hasCollide(enemies.get(i))){
                 player.dead = true;
+                System.out.println(enemies.get(i).center + ", " + enemies.get(i).radius);
+                System.out.println(player.center);
             }
         }
         explode();

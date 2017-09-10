@@ -83,7 +83,7 @@ public class Enemy extends Movables{
      */
     public boolean locationOOB(Point objectCenter){
         Main m = new Main();
-        if(objectCenter.x>m.WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
+        if(objectCenter.x > WIDTH || objectCenter.x<0 || objectCenter.y > HEIGHT || objectCenter.y<0){
             return true;
         }
         else return false;

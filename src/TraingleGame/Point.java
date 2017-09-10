@@ -22,6 +22,12 @@ public class Point {
         return (p.x == x && p.y == y);
     }
 
+    public float distTo(Point p){
+        float xDiff = x - p.x;
+        float yDiff = y - p.y;
+        return (float)Math.sqrt(xDiff*xDiff + yDiff*yDiff);
+    }
+
     @Override
     public String toString(){
         return "(" + x + ", " + y + ")";

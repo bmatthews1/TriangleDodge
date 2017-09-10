@@ -107,14 +107,12 @@ public class Player extends Movables{
 
     /**
      * checks to see if incoming object's center is within the bounds of this object
-     * @param incomingCenter
      * @return true if there is collision, false if no collision
      */
-    public boolean hasCollide(Point incomingCenter){
-        if(pointInTriangle(incomingCenter, a, b, c)){
-            return true;
-        }
-        else return false;
+    public boolean hasCollide(Enemy e){
+        return a.distTo(e.center) <= e.radius ||
+               b.distTo(e.center) <= e.radius ||
+               c.distTo(e.center) <= e.radius;
     }
 
     /**
@@ -150,6 +148,11 @@ public class Player extends Movables{
     }
 
     public boolean locationOOB(Point objectCenter){
+        return false;
+    }
+
+    @Override
+    boolean hasCollide(Point incomingCenter) {
         return false;
     }
 
