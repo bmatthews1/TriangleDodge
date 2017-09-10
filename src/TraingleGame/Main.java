@@ -46,7 +46,7 @@ public class Main extends PApplet{
 
                     enemies.get(i).oobDead = true;
                     enemies.get(j).oobDead = true;
-                }else if(!(enemies.get(i).attraction && enemies.get(j).attraction) && enemies.get(i).hasCollide(enemies.get(j))){
+                }else if(enemies.get(i).hasCollide(enemies.get(j))){
                     enemies.get(i).normalDead = true;
                     enemies.get(j).normalDead = true;
                 }
