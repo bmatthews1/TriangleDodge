@@ -186,8 +186,9 @@ public class Main extends PApplet{
      * called when the gameState is gameover
      */
     private void gameOver(){
+        textSize(60);
         fill(255);
-        rect(0, 0, WIDTH, HEIGHT);
+        text("YOU LOST. TRY AGAIN!", (WIDTH/2)-(WIDTH/6), HEIGHT/2);
     }
 
     private void drawTriangle(Triangle t){
@@ -200,9 +201,10 @@ public class Main extends PApplet{
     }
 
     public void renderScore(){
-        fill(30);
-        stroke(40);
-        rect(WIDTH-(WIDTH/8), 0, (WIDTH/8)-2, HEIGHT/4);
+        textSize(60);
+        fill(255);
+        text("Score: ", (WIDTH-(WIDTH/3)/2), HEIGHT/15);
+        text(score, (WIDTH-(WIDTH/8)/2), HEIGHT/15);
     }
 
     /**
