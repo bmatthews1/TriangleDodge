@@ -128,6 +128,7 @@ public class Main extends PApplet{
             RADIUS = (float)Math.sqrt(WIDTH*WIDTH + HEIGHT*HEIGHT)/2;
             MAX_ENEMIES = (int)(WIDTH*HEIGHT/52000);
             START_NUM_ENEMIES = MAX_ENEMIES;
+            padding = (int)(RADIUS/5);
             init();
         }
 
