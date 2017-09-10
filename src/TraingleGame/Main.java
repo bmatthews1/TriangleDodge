@@ -2,13 +2,10 @@ package TraingleGame;
 
 import processing.core.PApplet;
 import processing.core.PFont;
-import processing.core.PShapeSVG;
 
 import javax.sound.sampled.AudioInputStream;
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Random;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
@@ -173,7 +170,7 @@ public class Main extends PApplet{
      */
     private void menu(){
         menuScreen = true;
-        PFont font = loadFont("src/ARDESTINE-48.vlw");
+        PFont font = loadFont("ARDESTINE-48.vlw");
         textFont(font, 60);
         fill(255);
         textAlign(CENTER);
@@ -215,7 +212,7 @@ public class Main extends PApplet{
         drawPlayer();
         renderScore();
 
-        PFont font = loadFont("src/ARDESTINE-48.vlw");
+        PFont font = loadFont("ARDESTINE-48.vlw");
         textFont(font, 60);
         fill(255);
         textAlign(CENTER);
@@ -229,7 +226,7 @@ public class Main extends PApplet{
     private void gameOver(){
         fill(255);
         textAlign(CENTER);
-        PFont font = loadFont("src/ARDESTINE-48.vlw");
+        PFont font = loadFont("ARDESTINE-48.vlw");
         textFont(font, 60);
         text("YOU LOST :(", (WIDTH/2), HEIGHT/4);
         text("Score: "+score, (WIDTH/2), HEIGHT/2);
@@ -452,7 +449,7 @@ public class Main extends PApplet{
 
     public void themeMusic(){
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("src/starsNstuff.wav"));
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File("resources/starsNstuff.wav"));
             Clip clip = AudioSystem.getClip();
             clip.open(audioInputStream);
             clip.loop(Clip.LOOP_CONTINUOUSLY);
