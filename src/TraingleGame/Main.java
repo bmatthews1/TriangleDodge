@@ -2,6 +2,7 @@ package TraingleGame;
 
 import processing.core.PApplet;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -10,11 +11,11 @@ import java.util.ArrayList;
 public class Main extends PApplet{
     private static final float numSpikes = 40f;
 
-    public static final float WIDTH = 400;
-    public static final float HEIGHT = 400;
+    public static float WIDTH , HEIGHT , CENTER_X ,CENTER_Y , RADIUS;
 
     Player player;
     ArrayList<Enemy> enemies  = new ArrayList<>();
+    ArrayList<Triangle> triangles = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
     final int MAGNITUDE = 10;
 
@@ -35,12 +36,22 @@ public class Main extends PApplet{
 
     @Override
     public void settings(){
-        size((int)WIDTH, (int)HEIGHT);
-        init();
+        size(800, 600);
+        fullScreen();
     }
 
     @Override
     public void draw(){
+        if (frameCount == 1){
+            colorMode(HSB, 360, 100, 100, 100);
+            WIDTH = width;
+            HEIGHT = height;
+            CENTER_X = WIDTH/2f;
+            CENTER_Y = HEIGHT/2f;
+            RADIUS = (float)Math.sqrt(WIDTH*WIDTH + HEIGHT*HEIGHT)/2;
+            init();
+        }
+
         background(0, 0, 0);
         switch (gameState){
             case menu : menu();
@@ -51,6 +62,24 @@ public class Main extends PApplet{
                 break;
             case gameover: gameOver();
                 break;
+        }
+
+        if (random(1) < .4 && triangles.size() < 50){
+            Triangle t = Triangle.getRandomTriangle(RADIUS/2);
+            System.out.println(t);
+            triangles.add(t);
+        }
+
+        if (frameCount%20 == 0) System.out.println(triangles.size());
+        for (int i = 0; i < triangles.size(); i++){
+            Triangle t = triangles.get(i);
+            t.update();
+            drawTriangle(t);
+            if (!t.inBounds()){
+                triangles.remove(i);
+                i--;
+                System.out.println("removing triangle");
+            }
         }
     }
 
@@ -69,7 +98,6 @@ public class Main extends PApplet{
             e.update();
             drawEnemy(e);
         }
-
     }
 
     /**
@@ -84,6 +112,15 @@ public class Main extends PApplet{
      */
     private void gameOver(){
 
+    }
+
+    private void drawTriangle(Triangle t){
+        stroke(t.hue, 100, 100, 10);
+        strokeWeight(1);
+        fill(t.hue, 100, 100, 5);
+        triangle(t.points[0].x + t.x, t.points[0].y + t.y,
+                 t.points[1].x + t.x, t.points[1].y + t.y,
+                 t.points[2].x + t.x, t.points[2].y + t.y);
     }
 
     /**
