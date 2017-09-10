@@ -16,7 +16,7 @@ public class Enemy extends Movables{
 
     Player player;
     float angle;
-    float magnitude = 1;
+    float magnitude = 1.8f;
     float angleMod;
     float critProx = RADIUS/3;
     boolean isWithinCritProx = false;
@@ -37,6 +37,11 @@ public class Enemy extends Movables{
         //this.angle = (float)(Math.random()*Math.PI*2);
         setAngle(center);
         angleMod = (float)(Math.random()*.1);
+        if (!attraction) {
+            this.radius *= 3;
+            magnitude /= 4;
+        }
+
     }
 
     /**
@@ -63,11 +68,10 @@ public class Enemy extends Movables{
 
     @Override
     void update() {
-        if (attraction) {
+        //if (attraction) {
             if (Math.pow((center.x - player.center.x), 2) + Math.pow((center.y - player.center.y), 2) <= Math.pow(critProx, 2)){
                 if (!isWithinCritProx) {
                     isWithinCritProx = true;
-
                 }
                 angle = (float)Math.PI + (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
                 center.x += Math.cos(angle) * magnitude;
@@ -77,11 +81,11 @@ public class Enemy extends Movables{
                 center.x += Math.cos(angle) * magnitude;
                 center.y += Math.sin(angle) * magnitude;
             }
-        }else{
-            angle = (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
-            center.x += Math.cos(angle) * magnitude ;
-            center.y += Math.sin(angle) * magnitude ;
-        }
+        //}else{
+//            angle = (float)(Math.atan2((double)(center.y-player.center.y),(double)(center.x-player.center.x)));
+//            center.x += Math.cos(angle) * magnitude/4;
+//            center.y += Math.sin(angle) * magnitude/4;
+        //}
 
         angle += angleMod;
         if (Math.random() < .05) angleMod *= -1 ;

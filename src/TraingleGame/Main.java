@@ -20,7 +20,7 @@ public class Main extends PApplet{
     ArrayList<Triangle> triangles = new ArrayList<>();
     final int START_NUM_ENEMIES = 10;
     final int MAX_ENEMIES = 20;
-    final int ENEMY_RADIUS = 20;
+    final int ENEMY_RADIUS = 10;
     final int MAGNITUDE = 15;
     int score = 0;
     int padding = 150;
