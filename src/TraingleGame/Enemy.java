@@ -57,6 +57,9 @@ public class Enemy extends Movables{
             }
         }
         else{
+            if(Math.pow((center.x-player.center.x), 2)+Math.pow((center.y-player.center.y),2) <= critProx){
+                angle = (float)(Math.atan((double)((center.y-player.center.y)/(center.x-player.center.x))));
+            }
             center.x += Math.cos(angle) * magnitude ;
             center.y += Math.sin(angle) * magnitude ;
         }
@@ -78,6 +81,18 @@ public class Enemy extends Movables{
     public boolean locationOOB(Point objectCenter){
         Main m = new Main();
         if(objectCenter.x>m.WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
+            return true;
+        }
+        else return false;
+    }
+
+    /**
+     * checks to see if incoming object's center is within the bounds of this object
+     * @param incomingCenter
+     * @return true if there is collision, false if no collision
+     */
+    public boolean hasCollide(Point incomingCenter){
+        if(Math.pow((incomingCenter.x-center.x),2)+Math.pow((incomingCenter.y-center.y),2)<=Math.pow(radius, 2)){
             return true;
         }
         else return false;

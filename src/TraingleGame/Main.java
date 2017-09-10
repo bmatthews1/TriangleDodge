@@ -4,6 +4,7 @@ import processing.core.PApplet;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Ben on 9/8/2017.
@@ -19,9 +20,40 @@ public class Main extends PApplet{
     final int START_NUM_ENEMIES = 10;
     final int MAGNITUDE = 10;
 
+    public void init(){
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (double)MAGNITUDE*2, 0.0);
+        while (enemies.size() <= MAX_ENEMIES) {
+            makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
+        }
+    }
 
-    private void init(){
-        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), (float)MAGNITUDE*2, 0.0);
+    public void makeEnemy(Point p, int radius, boolean attraction, Player player){
+        enemies.add(new Enemy(p, radius, attraction, player));
+    }
+
+    public boolean getAttraction(){
+        return random.nextInt() < 0.5 ? true : false;
+    }
+
+    private Point getRandomPoint() {
+        float x;
+        float y;
+        float rand = random(0, 1);
+        if (rand > 0 && rand < 0.25) {
+            x = random(0, WIDTH);
+            y = HEIGHT;
+        } else if (rand > 0.25 && rand < 0.5) {
+            x = WIDTH;
+            y = random(0, HEIGHT);
+        } else if (rand > 0.5 && rand < 0.75) {
+            x = random(0, WIDTH);
+            y = 0;
+        } else {
+            x = 0;
+            y = random(0, HEIGHT);
+        }
+
+        return new Point((int) x, (int) y);
     }
 
     public enum GameState {
@@ -98,6 +130,7 @@ public class Main extends PApplet{
             e.update();
             drawEnemy(e);
         }
+        drawPlayer();
     }
 
     /**
@@ -155,10 +188,35 @@ public class Main extends PApplet{
      * draws the specified player
      */
     private void drawPlayer(){
-
+        player.update();
+        fill(40);
+        stroke(0, 100, 100);
+        triangle(player.a.x, player.a.y, player.b.x, player.b.y, player.c.x, player.c.y);
     }
 
+    @Override
+    public void keyPressed() {
 
+        if (key == CODED) {
+            if (keyCode == UP) {
+                player.a.y -= (MAGNITUDE*2);
+                player.b.y -= (MAGNITUDE*2);
+                player.c.y -= (MAGNITUDE*2);
+            } else if (keyCode == DOWN) {
+                player.a.y += (MAGNITUDE*2);
+                player.b.y += (MAGNITUDE*2);
+                player.c.y += (MAGNITUDE*2);
+            } else if (keyCode == LEFT) {
+                player.a.x -= (MAGNITUDE*2);
+                player.b.x -= (MAGNITUDE*2);
+                player.c.x -= (MAGNITUDE*2);
+            } else if (keyCode == RIGHT) {
+                player.a.x += (MAGNITUDE*2);
+                player.b.x += (MAGNITUDE*2);
+                player.c.x += (MAGNITUDE*2);
+            }
+        }
+    }
 
     public static void main(String[] args){
         Main m = new Main();
