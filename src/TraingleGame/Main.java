@@ -27,6 +27,8 @@ public class Main extends PApplet{
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .4, -Math.PI/2);
+        enemies.clear();
+        score = 0;
         while (enemies.size() <= MAX_ENEMIES) {
             makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
@@ -107,7 +109,7 @@ public class Main extends PApplet{
         gameover
     }
 
-    public GameState gameState = GameState.playing;
+    public GameState gameState = GameState.menu;
 
     @Override
     public void settings(){
@@ -160,7 +162,10 @@ public class Main extends PApplet{
      * called when the gameState is menu
      */
     private void menu(){
-
+        textSize(60);
+        fill(255);
+        textAlign(CENTER);
+        text("Press space to Start", (WIDTH/2), HEIGHT/2);
     }
 
     /**
@@ -182,6 +187,16 @@ public class Main extends PApplet{
      */
     private void paused(){
 
+        for (Enemy e : enemies) {
+            drawEnemy(e);
+        }
+        drawPlayer();
+        renderScore();
+
+        textSize(60);
+        fill(255);
+        textAlign(CENTER);
+        text("Press space to resume", (WIDTH/2), HEIGHT/2);
     }
 
     /**
@@ -191,7 +206,9 @@ public class Main extends PApplet{
         textSize(60);
         fill(255);
         textAlign(CENTER);
-        text("YOU LOST. TRY AGAIN!", (WIDTH/2), HEIGHT/2);
+        text("YOU LOST :(", (WIDTH/2), HEIGHT/4);
+        text("Press space to try again", (WIDTH/2), HEIGHT/2);
+        text("Score: "+score, (WIDTH/2), HEIGHT-(HEIGHT/4));
         textAlign(RIGHT);
     }
 
@@ -209,7 +226,6 @@ public class Main extends PApplet{
         fill(255);
         String scoreText = "Score: " + score;
         text(scoreText, (WIDTH-textWidth("Score: 0000")), HEIGHT/15);
-        //text(score, (WIDTH-(WIDTH/8)/2), HEIGHT/15);
     }
 
     /**
@@ -329,6 +345,15 @@ public class Main extends PApplet{
             if (keyCode == DOWN) player.reverse = false;
             if (keyCode == LEFT) player.leftStrafe = false;
             if (keyCode == RIGHT) player.rightStrafe = false;
+        }
+        if(key == ' '){
+            if(gameState == GameState.menu) gameState = GameState.playing;
+            else if(gameState == GameState.playing) gameState = GameState.paused;
+            else if(gameState == GameState.paused) gameState = GameState.playing;
+            else if(gameState == GameState.gameover){
+                init();
+                gameState = GameState.playing;
+            }
         }
     }
 

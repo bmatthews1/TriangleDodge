@@ -93,7 +93,6 @@ public class Enemy extends Movables{
         center.x = Math.min(Math.max(center.x, 0), WIDTH);
         center.y = Math.min(Math.max(center.y, 0), HEIGHT);
     }
-    //public void renderExplode(){}
 
     /**
      * checks to see if location is out of bounds
