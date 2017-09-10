@@ -68,7 +68,7 @@ public class Enemy extends Movables{
         }
 
         angle += angleMod;
-        if (Math.random() < .05) angleMod *= -1;
+        if (Math.random() < .05) angleMod *= -1 ;
 
         center.x = Math.min(Math.max(center.x, 0), WIDTH);
         center.y = Math.min(Math.max(center.y, 0), HEIGHT);
