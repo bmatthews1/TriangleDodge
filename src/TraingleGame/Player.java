@@ -11,9 +11,11 @@ import static TraingleGame.Main.WIDTH;
  * Created by Divya on 9/8/2017.
  */
 public class Player extends Movables{
-    public static final float DRAG = .98f;
+    public static final float DRAG = .96f;
     public static final float playerScale = .8f;
-    public static final float angleMod = .1f;
+    public static final float angleMod = .08f;
+    public static final double[] angles = {Math.PI*(2/3), Math.PI/4, Math.PI*(3/4d)};
+    public static final double[] lengths = {50, 22.627, 22.627};
 
     Point a;
     Point b;
@@ -60,8 +62,8 @@ public class Player extends Movables{
             yVel += Math.sin(angle)*magnitude;
         }
         if (reverse){
-            xVel -= Math.cos(angle)*magnitude/2;
-            yVel -= Math.sin(angle)*magnitude/2;
+            xVel -= Math.cos(angle)*magnitude/3;
+            yVel -= Math.sin(angle)*magnitude/3;
         }
         if (rightStrafe){
             angle += angleMod;
@@ -71,14 +73,14 @@ public class Player extends Movables{
         }
 
         center.x += xVel;
-        a.x += xVel;
-        b.x += xVel;
-        c.x += xVel;
+        a.x = (float)(Math.cos(angles[0] + angle)*lengths[0]);
+        b.x = (float)(Math.cos(angles[1] + angle)*lengths[1]);
+        b.x = (float)(Math.cos(angles[2] + angle)*lengths[2]);
 
         center.y += yVel;
-        a.y += yVel;
-        b.y += yVel;
-        c.y += yVel;
+        a.x = (float)(Math.sin(angles[0] + angle)*lengths[0]);
+        b.x = (float)(Math.sin(angles[1] + angle)*lengths[1]);
+        b.x = (float)(Math.sin(angles[2] + angle)*lengths[2]);
 
         if (center.x < 0){
             center.x += WIDTH;
@@ -117,7 +119,7 @@ public class Player extends Movables{
      */
     public boolean locationOOB(Point objectCenter){
         Main m = new Main();
-        if(objectCenter.x> WIDTH || objectCenter.x<0 || objectCenter.y>m.HEIGHT || objectCenter.y<0){
+        if(objectCenter.x> WIDTH || objectCenter.x<0 || objectCenter.y> HEIGHT || objectCenter.y<0){
             return true;
         }
         else return false;

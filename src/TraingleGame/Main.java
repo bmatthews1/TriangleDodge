@@ -23,7 +23,7 @@ public class Main extends PApplet{
     final int MAGNITUDE = 10;
 
     public void init(){
-        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .5, -Math.PI/2);
+        player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .4, -Math.PI/2);
         while (enemies.size() <= MAX_ENEMIES) {
             makeEnemy(getRandomPoint(), ENEMY_RADIUS, getAttraction(), player);
         }
@@ -163,11 +163,11 @@ public class Main extends PApplet{
      * @param e
      */
     private void drawEnemy(Enemy e){
-        strokeWeight(2);
+        strokeWeight(1);
         if (e.attraction) {
             fill(0, 60, 80);
             stroke(0, 100, 100);
-            float innerRadius = e.radius*.2f;
+            float innerRadius = e.radius*.4f;
             float angle = 0;
             beginShape();
             for (int i = 0; i < numSpikes; i++) {
@@ -191,38 +191,70 @@ public class Main extends PApplet{
     private void drawPlayer(){
         pushMatrix();
         strokeWeight(1);
-        fill(40);
+        fill(120, 100, 20);
         stroke(120, 100, 100);
         translate(player.center.x, player.center.y);
         rotate((float)player.angle + PI/2);
         translate(-player.center.x, -player.center.y);
 
 
-        rect(player.b.x - 4,player.b.y - 10, 8, 6);
         if (player.leftStrafe){
-
+            stroke(60,100, 100);
+            fill(20, 100, 100);
+            triangle(player.center.x - 20, player.center.y + 11,
+                    player.center.x - 20, player.center.y + 7,
+                    player.center.x - 27 - abs(frameCount%8 - 4), player.center.y + 9);
+            fill(120, 100, 20);
+            stroke(120, 100, 100);
         }
-        rect(player.c.x - 4, player.c.y - 10, 8, 6);
+        rect(player.center.x - 20,player.center.y + 6, 8, 6);
+
+
         if (player.rightStrafe){
-
+            stroke(60,100, 100);
+            fill(20, 100, 100);
+            triangle(player.center.x + 20, player.center.y + 11,
+                    player.center.x + 20, player.center.y + 7,
+                    player.center.x + 27 + abs(frameCount%8 - 4), player.center.y + 9);
+            fill(120, 100, 20);
+            stroke(120, 100,  100);
         }
+        rect(player.center.x + 12, player.center.y + 6, 8, 6);
 
+        if (player.reverse){
+            stroke(60,100, 100);
+            fill(20, 100, 100);
+            triangle(player.center.x - 12, player.center.y - 11,
+                    player.center.x - 7, player.center.y - 11,
+                    player.center.x - 10.5f, player.center.y - 15 - abs(frameCount%8 - 4));
+            triangle(player.center.x + 12, player.center.y - 11,
+                    player.center.x + 7, player.center.y - 11,
+                    player.center.x + 10.5f, player.center.y - 17 - abs(frameCount%8 - 4));
+            fill(120, 100, 20);
+            stroke(120, 100, 100);
+        }
         rect(player.center.x - 12, player.center.y - 12, 5, 10);
         rect(player.center.x + 7, player.center.y - 12, 5, 10);
-        if (player.reverse){
 
-        }
-        rect(player.b.x + 8, player.b.y, 16, 8);
         if (player.pEngines){
-
+            stroke(60,100, 100);
+            fill(20, 100, 100);
+            triangle(player.center.x - 8, player.center.y + 16,
+                    player.center.x + 8, player.center.y + 16,
+                    player.center.x, player.center.y + 32 + abs(frameCount%8 - 4)*2);
+            fill(120, 100, 20);
+            stroke(120, 100,  100);
         }
-        triangle(player.a.x, player.a.y, player.b.x, player.b.y, player.c.x, player.c.y);
+        rect(player.center.x - 8, player.center.y + 16, 16, 8);
 
-        fill(120, 100, 100);
-        quad(player.a.x - 1, player.a.y + 10,
-             player.a.x + 1, player.a.y + 10,
-             player.a.x + 3, player.a.y + 16,
-             player.a.x - 3, player.a.y + 16);
+        fill(40);
+        triangle(player.center.x, player.center.y - 36, player.center.x - 16, player.center.y + 16, player.center.x + 16, player.center.y + 16);
+
+        fill(120, 0, 100);
+        quad(player.center.x - 1, player.center.y - 26,
+             player.center.x + 1, player.center.y - 26,
+             player.center.x + 3, player.center.y - 20,
+             player.center.x - 3, player.center.y - 20);
         popMatrix();
     }
 
