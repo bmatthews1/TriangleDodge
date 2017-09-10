@@ -100,7 +100,6 @@ public class Enemy extends Movables{
      *         true if location is out of bounds
      */
     public boolean locationOOB(Point objectCenter){
-        Main m = new Main();
         if(objectCenter.x > WIDTH || objectCenter.x<0 || objectCenter.y > HEIGHT || objectCenter.y<0){
             return true;
         }
