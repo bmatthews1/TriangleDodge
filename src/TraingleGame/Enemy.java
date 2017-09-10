@@ -47,7 +47,7 @@ public class Enemy extends Movables{
 
     @Override
     void update() {
-        if (!attraction) {
+        if (attraction) {
             if (Math.pow((center.x - player.center.x), 2) + Math.pow((center.y - player.center.y), 2) <= Math.pow(critProx, 2)){
                 if (!isWithinCritProx) {
                     isWithinCritProx = true;
