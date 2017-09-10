@@ -32,9 +32,9 @@ public class Player extends Movables{
         this.center= center;
         this.magnitude = magnitude;
         this.angle = angle;
-        a = new Point(150, 350);
-        b = new Point(350, 350);
-        c = new Point(center.x, center.y);
+        a = new Point(center.x, center.y - 40);
+        b = new Point(center.x - 20, center.y + 20);
+        c = new Point(center.x + 20, center.y + 20);
 
     }
 

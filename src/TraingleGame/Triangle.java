@@ -52,7 +52,7 @@ public class Triangle {
         points[2] = new Point(x3, y3);
     }
 
-    public static Triangle getRandomTriangle(float radius){
+    static Triangle getRandomTriangle(float radius){
         Triangle t = new Triangle(radius);
         double angle = Math.random()*Math.PI*(2/3d);
 
