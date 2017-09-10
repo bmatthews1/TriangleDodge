@@ -20,7 +20,7 @@ public class Enemy extends Movables{
     float angleMod;
     Point center;
     float radius;
-    int critProx = 500;
+    int critProx = 100;
     boolean isWithinCritProx = false;
 
     public boolean oobDead = false;
@@ -36,8 +36,26 @@ public class Enemy extends Movables{
         this.radius = radius;
         this.attraction = attraction;
         this.player = player;
-        this.angle = (float)(Math.random()*Math.PI*2);
+        //this.angle = (float)(Math.random()*Math.PI*2);
+        setAngle(center);
         angleMod = (float)(Math.random()*.1);
+    }
+
+    /**
+     * Set initial angle to go towards the ship based on where
+     * the enemy was initialized
+     * @param center
+     */
+    public void setAngle(Point center){
+        if(center.x == 0){
+            this.angle = 0;
+        } else if(center.x == WIDTH){
+            this.angle = 180;
+        }else if(center.y == 0){
+            this.angle = 90;
+        } else if(center.y == HEIGHT){
+            this.angle = 270;
+        }
     }
 
     @Override

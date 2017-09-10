@@ -23,7 +23,7 @@ public class Main extends PApplet{
     final int ENEMY_RADIUS = 20;
     final int MAGNITUDE = 10;
     int score = 0;
-    int padding = 100;
+    int padding = 150;
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .4, -Math.PI/2);
