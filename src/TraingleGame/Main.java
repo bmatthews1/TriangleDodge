@@ -25,6 +25,7 @@ public class Main extends PApplet{
     static int MAGNITUDE = 15;
     int score = 0;
     int padding = 150;
+    boolean menuScreen;
 
     public void init(){
         player = new Player(new Point((int)(WIDTH/2), (int)(HEIGHT/2)), .4, -Math.PI/2);
@@ -39,6 +40,7 @@ public class Main extends PApplet{
         for (int i = 0; i < enemies.size(); i++) {
             for (int j = i+1; j < enemies.size(); j++) {
                 if(enemies.get(i).locationOOB(enemies.get(j).center)){
+
                     enemies.get(i).oobDead = true;
                     enemies.get(j).oobDead = true;
                 }else if(!(enemies.get(i).attraction && enemies.get(j).attraction) && enemies.get(i).hasCollide(enemies.get(j))){
@@ -166,11 +168,20 @@ public class Main extends PApplet{
      * called when the gameState is menu
      */
     private void menu(){
+        menuScreen = true;
         PFont font = loadFont("src/ARDESTINE-48.vlw");
         textFont(font, 60);
         fill(255);
         textAlign(CENTER);
         text("Press space to Start", (WIDTH/2), HEIGHT/2);
+        textAlign(LEFT);
+        text("Brian Bleck", (WIDTH/30), HEIGHT-(HEIGHT/3));
+        text("Ben Matthews", (WIDTH/30), HEIGHT-(HEIGHT/4));
+        text("Divya Komaravolu", (WIDTH/30), HEIGHT-(HEIGHT/6));
+        textAlign(CENTER);
+        textFont(font, 250);
+        text(" EV  DE", WIDTH-(WIDTH/2), HEIGHT/3);
+        drawPlayer();
         textAlign(LEFT);
     }
 
@@ -178,6 +189,7 @@ public class Main extends PApplet{
      * called when the gameState is playing
      */
     private void playing() {
+        menuScreen = false;
         player.update();
         for (Enemy e : enemies) {
             e.update();
@@ -288,63 +300,69 @@ public class Main extends PApplet{
 //        }
 //        rectMode(CORNER);
 
-
+        if(menuScreen){
+            player.center = new Point(WIDTH/6, HEIGHT/11);
+            scale(3);
+            player.leftStrafe = true;
+            player.rightStrafe = true;
+            player.pEngines = true;
+        }
 
         pushMatrix();
         strokeWeight(1);
         fill(120, 100, 20);
         stroke(120, 100, 100);
         translate(player.center.x, player.center.y);
-        rotate((float)player.angle + PI/2);
+        rotate((float) player.angle + PI / 2);
         translate(-player.center.x, -player.center.y);
 
 
-        if (player.leftStrafe){
-            stroke(60,100, 100);
+        if (player.leftStrafe) {
+            stroke(60, 100, 100);
             fill(20, 100, 100);
             triangle(player.center.x - 20, player.center.y + 11,
                     player.center.x - 20, player.center.y + 7,
-                    player.center.x - 27 - abs(frameCount%8 - 4), player.center.y + 9);
+                    player.center.x - 27 - abs(frameCount % 8 - 4), player.center.y + 9);
             fill(120, 100, 20);
             stroke(120, 100, 100);
         }
-        rect(player.center.x - 20,player.center.y + 6, 8, 6);
+        rect(player.center.x - 20, player.center.y + 6, 8, 6);
 
 
-        if (player.rightStrafe){
-            stroke(60,100, 100);
+        if (player.rightStrafe) {
+            stroke(60, 100, 100);
             fill(20, 100, 100);
             triangle(player.center.x + 20, player.center.y + 11,
                     player.center.x + 20, player.center.y + 7,
-                    player.center.x + 27 + abs(frameCount%8 - 4), player.center.y + 9);
+                    player.center.x + 27 + abs(frameCount % 8 - 4), player.center.y + 9);
             fill(120, 100, 20);
-            stroke(120, 100,  100);
+            stroke(120, 100, 100);
         }
         rect(player.center.x + 12, player.center.y + 6, 8, 6);
 
-        if (player.reverse){
-            stroke(60,100, 100);
+        if (player.reverse) {
+            stroke(60, 100, 100);
             fill(20, 100, 100);
             triangle(player.center.x - 12, player.center.y - 11,
                     player.center.x - 7, player.center.y - 11,
-                    player.center.x - 10.5f, player.center.y - 15 - abs(frameCount%8 - 4));
+                    player.center.x - 10.5f, player.center.y - 15 - abs(frameCount % 8 - 4));
             triangle(player.center.x + 12, player.center.y - 11,
                     player.center.x + 7, player.center.y - 11,
-                    player.center.x + 10.5f, player.center.y - 17 - abs(frameCount%8 - 4));
+                    player.center.x + 10.5f, player.center.y - 17 - abs(frameCount % 8 - 4));
             fill(120, 100, 20);
             stroke(120, 100, 100);
         }
         rect(player.center.x - 12, player.center.y - 12, 5, 10);
         rect(player.center.x + 7, player.center.y - 12, 5, 10);
 
-        if (player.pEngines){
-            stroke(60,100, 100);
+        if (player.pEngines) {
+            stroke(60, 100, 100);
             fill(20, 100, 100);
             triangle(player.center.x - 8, player.center.y + 16,
                     player.center.x + 8, player.center.y + 16,
-                    player.center.x, player.center.y + 32 + abs(frameCount%8 - 4)*2);
+                    player.center.x, player.center.y + 32 + abs(frameCount % 8 - 4) * 2);
             fill(120, 100, 20);
-            stroke(120, 100,  100);
+            stroke(120, 100, 100);
         }
         rect(player.center.x - 8, player.center.y + 16, 16, 8);
 
@@ -353,36 +371,39 @@ public class Main extends PApplet{
 
         fill(120, 0, 100);
         quad(player.center.x - 1, player.center.y - 26,
-             player.center.x + 1, player.center.y - 26,
-             player.center.x + 3, player.center.y - 20,
-             player.center.x - 3, player.center.y - 20);
+                player.center.x + 1, player.center.y - 26,
+                player.center.x + 3, player.center.y - 20,
+                player.center.x - 3, player.center.y - 20);
         popMatrix();
 
 
         noStroke();
-        if (player.center.x < PORTAL || player.center.x > WIDTH - PORTAL){
-            float dist = Math.min(player.center.x, WIDTH - player.center.x);
-            float perc = (PORTAL - dist)/PORTAL;
-            perc *= perc;
-            fill(120, 100, 100, (1f-perc)*20);
+        if(!menuScreen) {
+            if (player.center.x < PORTAL || player.center.x > WIDTH - PORTAL) {
+                float dist = Math.min(player.center.x, WIDTH - player.center.x);
+                float perc = (PORTAL - dist) / PORTAL;
+                perc *= perc;
+                fill(120, 100, 100, (1f - perc) * 20);
 
-            fill(120, 100, 100, 10);
-            for (int i = 10; i > 0; i--){
-                ellipse(0, player.center.y, i*20*perc, i*40*perc);
-                ellipse(WIDTH, player.center.y, i*20*perc, i*40*perc);
+                fill(120, 100, 100, 10);
+                for (int i = 10; i > 0; i--) {
+                    ellipse(0, player.center.y, i * 20 * perc, i * 40 * perc);
+                    ellipse(WIDTH, player.center.y, i * 20 * perc, i * 40 * perc);
+                }
+            }
+            if (player.center.y < PORTAL || player.center.y > HEIGHT - PORTAL) {
+                float dist = Math.min(player.center.y, HEIGHT - player.center.y);
+                float perc = ((PORTAL - dist) / PORTAL);
+                perc *= perc;
+                fill(120, 100, 100, (1f - perc) * 20);
+
+                for (int i = 10; i > 0; i--) {
+                    ellipse(player.center.x, 0, i * 40 * perc, i * 20 * perc);
+                    ellipse(player.center.x, HEIGHT, i * 40 * perc, i * 20 * perc);
+                }
             }
         }
-        if (player.center.y < PORTAL || player.center.y > HEIGHT - PORTAL){
-            float dist = Math.min(player.center.y, HEIGHT - player.center.y);
-            float perc = ((PORTAL - dist)/PORTAL);
-            perc *= perc;
-            fill(120, 100, 100, (1f-perc)*20);
-
-            for (int i = 10; i > 0; i--){
-                ellipse(player.center.x, 0, i*40*perc, i*20*perc);
-                ellipse(player.center.x, HEIGHT, i*40*perc, i*20*perc);
-            }
-        }
+        scale(1);
     }
 
     @Override
@@ -403,7 +424,13 @@ public class Main extends PApplet{
             if (keyCode == RIGHT) player.rightStrafe = false;
         }
         if(key == ' '){
-            if(gameState == GameState.menu) gameState = GameState.playing;
+            if(gameState == GameState.menu){
+                player.center = new Point(WIDTH/2, HEIGHT/2);
+                player.leftStrafe = false;
+                player.rightStrafe = false;
+                player.pEngines = false;
+                gameState = GameState.playing;
+            }
             else if(gameState == GameState.playing) gameState = GameState.paused;
             else if(gameState == GameState.paused) gameState = GameState.playing;
             else if(gameState == GameState.gameover){
