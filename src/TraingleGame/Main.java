@@ -2,6 +2,7 @@ package TraingleGame;
 
 import processing.core.PApplet;
 import processing.core.PFont;
+import processing.core.PShapeSVG;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -165,7 +166,8 @@ public class Main extends PApplet{
      * called when the gameState is menu
      */
     private void menu(){
-        textSize(60);
+        PFont font = loadFont("src/ARDESTINE-48.vlw");
+        textFont(font, 60);
         fill(255);
         textAlign(CENTER);
         text("Press space to Start", (WIDTH/2), HEIGHT/2);
@@ -197,7 +199,8 @@ public class Main extends PApplet{
         drawPlayer();
         renderScore();
 
-        textSize(60);
+        PFont font = loadFont("src/ARDESTINE-48.vlw");
+        textFont(font, 60);
         fill(255);
         textAlign(CENTER);
         text("Press space to resume", (WIDTH/2), HEIGHT/2);
@@ -208,9 +211,10 @@ public class Main extends PApplet{
      * called when the gameState is gameover
      */
     private void gameOver(){
-        textSize(60);
         fill(255);
         textAlign(CENTER);
+        PFont font = loadFont("src/ARDESTINE-48.vlw");
+        textFont(font, 60);
         text("YOU LOST :(", (WIDTH/2), HEIGHT/4);
         text("Score: "+score, (WIDTH/2), HEIGHT/2);
         textSize(40);
